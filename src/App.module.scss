@@ -1,0 +1,61 @@
+
+
+$red: rgb(255, 34, 0);
+$blue: rgb(0, 55, 255);
+
+body {
+  background-color: #202020;
+}
+
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+.scrollPage::-webkit-scrollbar {
+  display: none;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-bottom: 10px;
+}
+
+.app {
+  background-color: #202020;
+  position: fixed;
+  width: 1100px;
+  height: 100vh;
+  min-height: 600px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-decoration: none;
+}
+
+
+
+@media all and (max-width: 1100px) {
+  .app{
+    width: calc(100% + 1px);
+  }
+}
+
+@media all and (max-width: 767px) {
+  .app{
+    width: calc(100% + 1px);
+  }
+}
+
+@media all and (max-width: 479px) {
+  .app{
+    width: calc(100% + 1px);
+  }
+}
+
+
+
