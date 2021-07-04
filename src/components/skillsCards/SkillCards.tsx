@@ -17,6 +17,7 @@ import splash6 from "../../assets/skills/splashes/jest.jpg"
 import splash7 from "../../assets/skills/splashes/tdd.jpg"
 import splash8 from "../../assets/skills/splashes/cdd.png"
 import splash9 from "../../assets/skills/splashes/ctrlcctrlv.jpg"
+import {blankcover} from "../Main"
 
 type TSkill = {
     id: number
@@ -30,13 +31,12 @@ type TSkill = {
 }
 
 const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
-    const blankcover = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel est eu tortor porttitor congue. Praesent finibus eleifend mi, eu dictum est scelerisque ut. Nulla sed nulla sed tellus feugiat dignissim a pulvinar sem.'
     const skillsData: Array<TSkill> = [
         {
             id: 1,
             skillName: ['React'],
             skillImg: skill1,
-            skillImgAlt: 'react',
+            skillImgAlt: skill1.toString(),
             skillSplash: splash1,
             skillSplashAlt: splash1.toString(),
             skillSplashDesc: 'React4Life',
@@ -155,12 +155,12 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
                     <div className="skills__card__img">
                         <img src={s.skillImg} alt={s.skillImgAlt} />
                     </div>
+                    {/*TODO: fix fontsize ov short titles in mobile view:*/}
                     <div className="skills__card__title title">
                         {s.skillName.map((n, i) => s.skillName.length > 1 || n.length > 6
                             ? (<div key={i+n} className="skills__card__title__reduced"><h4>{n}</h4></div>)
                             : (<div key={i+n}><h3>{n}</h3></div>))}
                     </div>
-
                 </div>
                 <div className="skills__card__splashDesc">
                     {s.skillSplashDesc}

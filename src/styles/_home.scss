@@ -1,574 +1,685 @@
 .page {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-  perspective: 5000px;
-  @media (max-width: $md4+px) {
-    /*    transform-style: preserve-3d;*/
-    perspective: 50000px;
-  }
-  // .page__hero
-  &__hero {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	z-index: 2;
+	perspective: 5000px;
+	@media (max-width: $md4+px) {
+		perspective: 50000px;
+	}
+	// .page__hero
+	&__hero {
 
-    height: fit-content;
-    transform-style: flat;
-    @media (max-width: $md4+px) {
-      /*      transform-style: preserve-3d;*/
-    }
+		height: fit-content;
+		transform-style: flat;
+		@media (max-width: $md4+px) {
+			/*      transform-style: preserve-3d;*/
+		}
 
-  }
+	}
 
-  // .page__about
-  &__about {
-  }
+	// .page__about
+	&__about {
+	}
 
-  // .page__skills
-  &__skills {
-    /*    position: relative;
-        z-index: 2;*/
-  }
+	// .page__skills
+	&__skills {
+	}
+
+	// .page__projects
+	&__projects {
+	}
 }
 
 .hero {
-  margin: 0 auto;
-  max-width: 1200px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 120px 33px 40px 33px;
-  z-index: 10;
-  @media (max-width: $md2+px) {
-    padding: 120px 25px 40px 25px;
-  }
-  @media (max-width: $md4+px) {
-    justify-content: flex-start;
-    padding: 30px 20px 40px 20px;
-    margin-top: 66px;
-  }
-  // .hero__container
-  &__container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    @media (max-width: $md3+px) {
-      justify-content: center;
-      flex-direction: column;
-      .hero__btn1 {
-        display: none;
-      }
-    }
-  }
+	margin: 0 auto;
+	max-width: 1200px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 120px 33px 40px 33px;
+	z-index: 10;
+	@media (max-width: $md2+px) {
+		padding: 120px 25px 40px 25px;
+	}
+	@media (max-width: $md4+px) {
+		justify-content: flex-start;
+		padding: 30px 20px 40px 20px;
+		margin-top: 66px;
+	}
+	// .hero__container
+	&__container {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		@media (max-width: $md3+px) {
+			justify-content: center;
+			flex-direction: column;
+			.hero__btn1 {
+				display: none;
+			}
+		}
+	}
 
-  // .hero__desc
-  &__desc {
-    flex: 1 1 auto;
-    padding: 0 50px 0 0;
+	// .hero__desc
+	&__desc {
+		flex: 1 1 auto;
+		padding: 0 50px 0 0;
 
-    *:last-child {
-      margin-bottom: 0;
-    }
+		*:last-child {
+			margin-bottom: 0;
+		}
 
-    @media (max-width: $md2+px) {
-      padding: 0 30px 0 0;
-    }
+		@media (max-width: $md2+px) {
+			padding: 0 30px 0 0;
+		}
 
-    @media (max-width: $md3+px) {
-      padding: 0;
-    }
-  }
+		@media (max-width: $md3+px) {
+			padding: 0;
+		}
+	}
 
-  // .hero__title
-  &__title {
-    @media (max-width: $md4+px) {
-      h1 {
-        font-size: 35px;
-      }
-      h2 {
-        font-size: 23px;
-      }
+	// .hero__title
+	&__title {
+		@media (max-width: $md4+px) {
+			h1 {
+				font-size: 35px;
+			}
+			h2 {
+				font-size: 23px;
+			}
 
-      h3 {
-        font-size: 18px;
-      }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .stringOne {
-        animation: __glow infinite 15s ease .8s;
-      }
-      .stringTwo {
-        animation: __glow infinite 15s ease 1.8s;
-      }
-      .stringThree {
-        animation: __glow infinite 15s ease 2.8s;
-      }
+			h3 {
+				font-size: 18px;
+			}
+		}
+		@media (prefers-reduced-motion: no-preference) {
+			.stringOne {
+				animation: __glow infinite 15s ease .8s;
+			}
+			.stringTwo {
+				animation: __glow infinite 15s ease 1.8s;
+			}
+			.stringThree {
+				animation: __glow infinite 15s ease 2.8s;
+			}
 
-      @include glow()
-    }
-  }
+			@include glow()
+		}
+	}
 
-  // .hero__btn1
-  &__btnA {
-    @media (max-width: $md3+px) {
-      display: none !important;
-    }
-  }
+	// .hero__btn1
+	&__btnA {
+		@media (max-width: $md3+px) {
+			display: none !important;
+		}
+	}
 
-  // .hero__btn2
-  &__btnB {
-    @media (min-width: $md3+px) {
-      display: none !important;
-    }
-  }
+	// .hero__btn2
+	&__btnB {
+		@media (min-width: $md3+px) {
+			display: none !important;
+		}
+	}
 
-  // .hero__img
-  &__img {
-    /* flex: 0 2 auto;*/
-    position: relative;
-    z-index: 10;
-    max-width: 400px;
+	// .hero__img
+	&__img {
+		/* flex: 0 2 auto;*/
+		position: relative;
+		z-index: 10;
+		max-width: 400px;
 
-    @media (max-width: $md3+px) {
-      max-width: 300px;
-      margin-bottom: 40px;
-    }
-    @media (max-width: $md4+px) {
-      max-width: 250px;
-      margin-bottom: 40px;
-    }
+		@media (max-width: $md3+px) {
+			max-width: 300px;
+			margin-bottom: 40px;
+		}
+		@media (max-width: $md4+px) {
+			max-width: 250px;
+			margin-bottom: 40px;
+		}
 
-    img {
-      z-index: 10;
-      max-width: 100%;
-      border-radius: 5px;
-      /*     object-fit: cover;*/
-      box-shadow: 0 0 10px 5px black;
-    }
-  }
+		img {
+			z-index: 10;
+			max-width: 100%;
+			border-radius: 5px;
+			/*     object-fit: cover;*/
+			box-shadow: 0 0 10px 5px black;
+		}
+	}
 }
 
 //=====================================================================================================================
 .about {
-  margin: 0 auto 30px;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 33px 40px 33px;
-  @media (max-width: $md4+px) {
-    padding: 30px 20px 40px 20px;
-  }
-  // .about__container
-  &__container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+	margin: 0 auto 30px;
+	max-width: 1200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px 33px 40px 33px;
+	@media (max-width: $md4+px) {
+		padding: 30px 20px 40px 20px;
+	}
+	// .about__container
+	&__container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
 
-    @media (max-width: $md4+px) {
-      align-items: center;
-    }
-  }
+		@media (max-width: $md4+px) {
+			align-items: center;
+		}
+	}
 
-  // .about__title
-  &__title {
-    align-items: flex-end;
-    @media (max-width: $md4+px) {
-      align-items: center;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .stringThree {
-        animation: __glow infinite 15s ease .3s;
-      }
-      @include glow()
-    }
-  }
+	// .about__title
+	&__title {
+		align-items: flex-end;
+		@media (max-width: $md4+px) {
+			align-items: center;
+		}
+		@media (prefers-reduced-motion: no-preference) {
+			.stringThree {
+				animation: __glow infinite 15s ease .3s;
+			}
+			@include glow()
+		}
+	}
 
-  // .about__text
-  &__text {
-    margin-bottom: 30px;
-    @media (max-width: $md4+px) {
-      font-size: 18px;
-    }
-  }
+	// .about__text
+	&__text {
+		margin-bottom: 30px;
+		@media (max-width: $md4+px) {
+			font-size: 18px;
+		}
+	}
 
-  // .about__btn
-  &__btn {
-    display: flex;
-  }
+	// .about__btn
+	&__btn {
+		display: flex;
+	}
 }
 
 //=====================================================================================================================
 .skills {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 20px 33px 40px 33px;
-  display: flex;
-  justify-content: center;
-  @media (max-width: $md4+px) {
-    padding: 30px 20px 40px 20px;
-  }
-  // .skills__container
-  &__container {
-    width: 100%;
-  }
+	margin: 0 auto 30px;
+	max-width: 1200px;
+	padding: 20px 33px 40px 33px;
+	display: flex;
+	justify-content: center;
+	@media (max-width: $md4+px) {
+		padding: 30px 0 40px 0;
+	}
+	// .skills__container
+	&__container {
+		width: 100%;
+	}
 
-  // .skills__title
-  &__title {
-    margin-bottom: 60px;
-    @media (max-width: $md4+px) {
-      align-items: center;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .stringThree {
-        animation: __glow infinite 15s ease .3s;
-      }
-      @include glow()
-    }
-  }
+	// .skills__title
+	&__title {
+		margin-bottom: 60px;
+		@media (max-width: $md4+px) {
+			align-items: center;
+		}
+		@media (prefers-reduced-motion: no-preference) {
+			.stringThree {
+				animation: __glow infinite 15s ease .3s;
+			}
+			@include glow()
+		}
+	}
 
-  // .skills__cards
-  &__cards {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 50px;
+	// .skills__cards
+	&__cards {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr;
+		grid-gap: 50px;
 
-    @media (max-width: $md1+px) {
-      grid-gap: 30px;
-    }
-    @media (max-width: $md2+px) {
-      grid-gap: 20px;
-    }
-    @media (max-width: $md3+px) {
-      display: flex;
-      flex-direction: column;
-    }
-  }
+		@media (max-width: $md1+px) {
+			grid-gap: 30px;
+		}
+		@media (max-width: $md2+px) {
+			grid-gap: 20px;
+		}
+		@media (max-width: $md3+px) {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
 
-  // .skills__card
-  &__card {
-    background-color: $bg;
-    border-radius: 5px;
-    // .skills__card__container
-    &__container {
-      position: relative;
-      padding: 10px 0 10px 10px;
-    }
+	// .skills__card
+	&__card {
+		background-color: $bg;
+		border-radius: 5px;
+		@media (max-width: $md3+px) {
+			max-width: 450px;
+		}
+		// .skills__card__container
+		&__container {
+			position: relative;
+			//z-index: 1;
+			padding: 10px;
+		}
 
-    &__header {
-      /*      position: relative;
-            z-index: 5;*/
-      display: flex;
-      transform: translate(-30px, -30px);
-    }
+		&__header {
+			/*      position: relative;
+				  z-index: 5;*/
+			display: flex;
+			transform: translate(-35px, -30px);
+		}
 
-    // .skills__card__img
-    &__img {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      width: 120px;
-      height: 120px;
-      background-color: $secondary;
-      border-radius: 50%;
-      @media (max-width: $md2+px) {
-        width: 100px;
-        height: 100px;
-      }
+		// .skills__card__img
+		&__img {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 0;
+			width: 120px;
+			height: 120px;
+			background-color: $secondary;
+			border-radius: 50%;
+			@media (max-width: $md2+px) {
+				width: 100px;
+				height: 100px;
+			}
 
-      @media (max-width: $md3+px) {
-        width: 150px;
-        height: 150px;
-      }
-      @media (max-width: $md4+px) {
-        width: 150px;
-        height: 150px;
-      }
+			@media (max-width: $md3+px) {
+				width: 150px;
+				height: 150px;
+			}
+			@media (max-width: $md4+px) {
+				width: 150px;
+				height: 150px;
+			}
 
-      img {
-        max-width: 70%;
-        max-height: 70%;
-        object-fit: cover;
+			img {
+				max-width: 70%;
+				max-height: 70%;
+				object-fit: cover;
 
-      }
-    }
+			}
+		}
 
-    &__splashDesc {
-      position: absolute;
-      cursor: pointer;
-      font-family: Minecraftia, monospace;
-      text-transform: uppercase;
-      font-size: 16px;
-      color: #fff000;
-      text-align: right;
-      right: 15px;
-      top: 75px;
-      z-index: 6;
-      transform: rotate(-10deg);
+		&__splashDesc {
+			position: absolute;
+			cursor: pointer;
+			font-family: Minecraftia, monospace;
+			text-transform: uppercase;
+			font-size: 16px;
+			color: #fff000;
+			text-align: right;
+			right: 15px;
+			top: 75px;
+			z-index: 6;
+			transform: rotate(-10deg);
+			@media (max-width: $md3+px) {
+				right: 20px;
+				top: 100px;
+			}
+			@media (max-width: $md4+px) {
+				font-size: 14px;
+				right: 10px;
+			}
 
+			&:hover {
+				opacity: 0;
+				z-index: 10;
 
-      &:hover {
-        opacity: 0;
-        z-index: 10;
-
-        + .skills__card__splash {
-          position: absolute;
-          z-index: 9;
-          opacity: 1;
-        }
-
-
-      }
-
-    }
-
-    // .skills__card__title
-    &__title {
-      z-index: 1;
-      justify-content: center;
-      font-size: 30px;
-      margin: 0 -30px 0 15px;
-      @media (max-width: $md2+px) {
-        font-size: 20px;
-      }
-
-      // skills__card__title__reduced
-      &__reduced h4 {
-        font-size: 23px;
-        line-height: 1em;
-        @media (max-width: $md2+px) {
-          font-size: calc(2vw);
-        }
-        @media (max-width: $md3+px) {
-          font-size: calc(15px + 2vw);
-        }
-      }
-    }
-
-    // .skills__card__splash
-    &__splash {
-      opacity: 0.1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: absolute;
-      z-index: 5;
-      transform: translate(0px, -100px) rotate(-10deg);
-      width: 350px;
-      height: 350px;
-
-      img {
-        position: relative;
-        z-index: 100;
-        width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-      }
-    }
-
-    /*    &:first-child .skills__card__splash {
-          transform: translate(0px, -190px) rotate(10deg) !important;
-        }*/
-
-    &:nth-child(3n-1) .skills__card__splash {
-      transform: translate(-30px, -150px) rotate(-5deg);
-    }
-
-    &:nth-child(3n) .skills__card__splash {
-      transform: translate(-10vw, -100px) rotate(-10deg);
-      @media (max-width: $md2+px) {
-        transform: translate(-100px, -100px) rotate(-10deg);
-      }
-    }
-
-    &:nth-child(3n+1) .skills__card__splash {
-      transform: translate(0px, -100px) rotate(10deg);
-    }
-
-    // .skills__card__splashDesc
+				+ .skills__card__splash {
+					position: absolute;
+					z-index: 9;
+					opacity: 1;
+				}
 
 
-    // .skills__card__text
-    &__text {
-      z-index: 1;
-      transform: translateY(-10px);
-      padding: 0 10px 0;
-    }
-  }
+			}
+
+		}
+
+		// .skills__card__title
+		&__title {
+			z-index: 1;
+			justify-content: center;
+			font-size: 30px;
+			margin: 0 -30px 0 15px;
+			@media (max-width: $md2+px) {
+				font-size: 20px;
+			}
+
+			// skills__card__title__reduced
+			&__reduced h4 {
+				font-size: 23px;
+				line-height: 1em;
+				@media (max-width: $md2+px) {
+					font-size: calc(2vw);
+				}
+				@media (max-width: $md3+px) {
+					font-size: calc(15px + 2vw);
+				}
+			}
+		}
+
+		// .skills__card__splash
+		&__splash {
+			opacity: 0;
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			position: absolute;
+			z-index: 5;
+			width: 350px;
+			height: 350px;
+			@media (max-width: $md4+px) {
+				width: 300px;
+				height: 300px;
+			}
+
+			img {
+				position: relative;
+				z-index: 100;
+				width: 100%;
+				max-height: 100%;
+				object-fit: contain;
+			}
+		}
+
+		&:nth-child(3n-1) .skills__card__splash {
+			transform: translate(0px, -100px) rotate(-5deg);
+			@media (max-width: $md3+px) {
+				transform: translate(0px, -100px) rotate(-5deg);
+			}
+		}
+
+		&:nth-child(3n) .skills__card__splash {
+			transform: translate(-50px, -100px) rotate(-10deg);
+			@media (max-width: $md2+px) {
+				transform: translate(-100px, -100px) rotate(-10deg);
+			}
+			@media (max-width: $md3+px) {
+				transform: translate(0px, -100px) rotate(-10deg);
+			}
+		}
+
+		&:nth-child(3n+1) .skills__card__splash {
+			transform: translate(0px, -100px) rotate(10deg);
+			@media (max-width: $md3+px) {
+				transform: translate(0px, -100px) rotate(10deg);
+			}
+		}
+
+		// .skills__card__splashDesc
+
+
+		// .skills__card__text
+		&__text {
+			z-index: 1;
+			transform: translateY(-10px);
+			padding: 0 10px 0;
+		}
+	}
 }
 
+//===================================================================================================================
+.projects {
+	margin: 0 auto 30px;
+	max-width: 1200px;
+	padding: 20px 33px 40px 33px;
+	display: flex;
+	justify-content: center;
+	@media (max-width: $md4+px) {
+		padding: 30px 0 40px 0;
+	}
+	// .projects__container
+	&__container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      @media (max-width: $md4+px) {
+        align-items: center;
+      }
+	}
+
+	// .projects__title
+	&__title {
+      align-items: flex-end;
+	}
+
+	// .projects__cards
+	&__cards {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		grid-gap: 50px;
+
+		@media (max-width: $md1+px) {
+			grid-gap: 30px;
+		}
+		@media (max-width: $md2+px) {
+			grid-gap: 20px;
+		}
+		@media (max-width: $md3+px) {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+
+	// .projects__card
+	&__card {
+		background-color: $bg;
+		border-radius: 5px;
+
+		// .projects__card__container
+		&__container {
+
+		}
+
+
+		// .projects__card__img
+		&__img {
+			position: relative;
+
+			@media (max-width: $md2+px) {
+
+			}
+
+			@media (max-width: $md3+px) {
+
+			}
+			@media (max-width: $md4+px) {
+
+			}
+
+			img {
+				max-width: 70%;
+				max-height: 70%;
+				object-fit: cover;
+
+			}
+		}
+
+		// .projects__card__title
+		&__title {
+			font-size: 30px;
+			@media (max-width: $md2+px) {
+				font-size: 20px;
+			}
+		}
+	}
+}
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /*-------------------hero first string---------------------*/
-  .__h1 {
-    @include anim_fadein(__h1, 0s)
-  }
-  .__i1 {
-    @include anim_fadein(__i1, 0s)
-  }
-  .__a1 {
-    @include anim_fadein(__a1, 0s)
-  }
-  .__l1 {
-    @include anim_fadein(__l1, 0s)
-  }
-  .__l2 {
-    @include anim_fadein(__l2, 0s)
-  }
-  .__exc1 {
-    @include anim_fadein(__exc1, 0s)
-  }
+	/*-------------------hero first string---------------------*/
+	.__h1 {
+		@include anim_fadein(__h1, 0s)
+	}
+	.__i1 {
+		@include anim_fadein(__i1, 0s)
+	}
+	.__a1 {
+		@include anim_fadein(__a1, 0s)
+	}
+	.__l1 {
+		@include anim_fadein(__l1, 0s)
+	}
+	.__l2 {
+		@include anim_fadein(__l2, 0s)
+	}
+	.__exc1 {
+		@include anim_fadein(__exc1, 0s)
+	}
 
-  @include fadein(__h1, 1300px);
-  @include fadein(__i1, -600px);
-  @include fadein(__a1, 2300px);
-  @include fadein(__l1, -500px);
-  @include fadein(__l2, -600px);
-  @include fadein(__exc1, 1500px);
+	@include fadein(__h1, 1300px);
+	@include fadein(__i1, -600px);
+	@include fadein(__a1, 2300px);
+	@include fadein(__l1, -500px);
+	@include fadein(__l2, -600px);
+	@include fadein(__exc1, 1500px);
 
-  /*-------------------hero second string---------------------*/
-  .__i2 {
-    @include anim_fadein(__i2, 1s)
-  }
-  .__apo1 {
-    @include anim_fadein(__apo1, 1s)
-  }
-  .__m1 {
-    @include anim_fadein(__m1, 1s)
-  }
-  .__r1 {
-    @include anim_fadein(__r1, 1s)
-  }
-  .__a2 {
-    @include anim_fadein(__a2, 1s)
-  }
-  .__m2 {
-    @include anim_fadein(__m2, 1s)
-  }
-  .__a3 {
-    @include anim_fadein(__a3, 1s)
-  }
-  .__n1 {
-    @include anim_fadein(__n1, 1s)
-  }
+	/*-------------------hero second string---------------------*/
+	.__i2 {
+		@include anim_fadein(__i2, 1s)
+	}
+	.__apo1 {
+		@include anim_fadein(__apo1, 1s)
+	}
+	.__m1 {
+		@include anim_fadein(__m1, 1s)
+	}
+	.__r1 {
+		@include anim_fadein(__r1, 1s)
+	}
+	.__a2 {
+		@include anim_fadein(__a2, 1s)
+	}
+	.__m2 {
+		@include anim_fadein(__m2, 1s)
+	}
+	.__a3 {
+		@include anim_fadein(__a3, 1s)
+	}
+	.__n1 {
+		@include anim_fadein(__n1, 1s)
+	}
 
-  @include fadein(__i2, -600px);
-  @include fadein(__apo1, 1300px);
-  @include fadein(__m1, -500px);
-  @include fadein(__r1, 2300px);
-  @include fadein(__a2, 1500px);
-  @include fadein(__m2, -400px);
-  @include fadein(__a3, 1500px);
-  @include fadein(__n1, -1500px);
+	@include fadein(__i2, -600px);
+	@include fadein(__apo1, 1300px);
+	@include fadein(__m1, -500px);
+	@include fadein(__r1, 2300px);
+	@include fadein(__a2, 1500px);
+	@include fadein(__m2, -400px);
+	@include fadein(__a3, 1500px);
+	@include fadein(__n1, -1500px);
 
-  /*-------------------hero third string---------------------*/
-  .__f1 {
-    @include anim_fadein(__f1, 2s)
-  }
-  .__r2 {
-    @include anim_fadein(__r2, 2s)
-  }
-  .__o2 {
-    @include anim_fadein(__o2, 2s)
-  }
-  .__n2 {
-    @include anim_fadein(__n2, 2s)
-  }
-  .__t1 {
-    @include anim_fadein(__t1, 2s)
-  }
-  .__e1 {
-    @include anim_fadein(__e1, 2s)
-  }
-  .__n3 {
-    @include anim_fadein(__n3, 2s)
-  }
-  .__d1 {
-    @include anim_fadein(__d1, 2s)
-  }
-  .__d2 {
-    @include anim_fadein(__d2, 2s)
-  }
-  .__e2 {
-    @include anim_fadein(__e2, 2s)
-  }
-  .__v1 {
-    @include anim_fadein(__v1, 2s)
-  }
-  .__e3 {
-    @include anim_fadein(__e3, 2s)
-  }
-  .__l3 {
-    @include anim_fadein(__l3, 2s)
-  }
-  .__o3 {
-    @include anim_fadein(__o3, 2s)
-  }
-  .__p1 {
-    @include anim_fadein(__p1, 2s)
-  }
-  .__e4 {
-    @include anim_fadein(__e4, 2s)
-  }
-  .__r3 {
-    @include anim_fadein(__r3, 2s)
-  }
+	/*-------------------hero third string---------------------*/
+	.__f1 {
+		@include anim_fadein(__f1, 2s)
+	}
+	.__r2 {
+		@include anim_fadein(__r2, 2s)
+	}
+	.__o2 {
+		@include anim_fadein(__o2, 2s)
+	}
+	.__n2 {
+		@include anim_fadein(__n2, 2s)
+	}
+	.__t1 {
+		@include anim_fadein(__t1, 2s)
+	}
+	.__e1 {
+		@include anim_fadein(__e1, 2s)
+	}
+	.__n3 {
+		@include anim_fadein(__n3, 2s)
+	}
+	.__d1 {
+		@include anim_fadein(__d1, 2s)
+	}
+	.__d2 {
+		@include anim_fadein(__d2, 2s)
+	}
+	.__e2 {
+		@include anim_fadein(__e2, 2s)
+	}
+	.__v1 {
+		@include anim_fadein(__v1, 2s)
+	}
+	.__e3 {
+		@include anim_fadein(__e3, 2s)
+	}
+	.__l3 {
+		@include anim_fadein(__l3, 2s)
+	}
+	.__o3 {
+		@include anim_fadein(__o3, 2s)
+	}
+	.__p1 {
+		@include anim_fadein(__p1, 2s)
+	}
+	.__e4 {
+		@include anim_fadein(__e4, 2s)
+	}
+	.__r3 {
+		@include anim_fadein(__r3, 2s)
+	}
 
-  @include fadein(__f1, -600px);
-  @include fadein(__r2, 1300px);
-  @include fadein(__o2, -500px);
-  @include fadein(__n2, 2300px);
-  @include fadein(__t1, 1500px);
-  @include fadein(__e1, -400px);
-  @include fadein(__n3, 1500px);
-  @include fadein(__d1, -1500px);
-  @include fadein(__d2, 1500px);
-  @include fadein(__e2, -500px);
-  @include fadein(__v1, 2300px);
-  @include fadein(__e3, 1300px);
-  @include fadein(__l3, 1300px);
-  @include fadein(__o3, -1000px);
-  @include fadein(__p1, 2000px);
-  @include fadein(__e4, -600px);
-  @include fadein(__r3, -1500px);
+	@include fadein(__f1, -600px);
+	@include fadein(__r2, 1300px);
+	@include fadein(__o2, -500px);
+	@include fadein(__n2, 2300px);
+	@include fadein(__t1, 1500px);
+	@include fadein(__e1, -400px);
+	@include fadein(__n3, 1500px);
+	@include fadein(__d1, -1500px);
+	@include fadein(__d2, 1500px);
+	@include fadein(__e2, -500px);
+	@include fadein(__v1, 2300px);
+	@include fadein(__e3, 1300px);
+	@include fadein(__l3, 1300px);
+	@include fadein(__o3, -1000px);
+	@include fadein(__p1, 2000px);
+	@include fadein(__e4, -600px);
+	@include fadein(__r3, -1500px);
 
 
-  /*-------------------about string---------------------*/
+	/*-------------------about string---------------------*/
 
-  .__a4 {
-    @include anim_fadein(__a4, .5s)
-  }
-  .__b1 {
-    @include anim_fadein(__b1, .5s)
-  }
-  .__o4 {
-    @include anim_fadein(__o4, .5s)
-  }
-  .__u1 {
-    @include anim_fadein(__u1, .5s)
-  }
-  .__t2 {
-    @include anim_fadein(__t2, .5s)
-  }
-  .__m3 {
-    @include anim_fadein(__m3, .5s)
-  }
-  .__e5 {
-    @include anim_fadein(__e5, .5s)
-  }
+	.__a4 {
+		@include anim_fadein(__a4, .5s)
+	}
+	.__b1 {
+		@include anim_fadein(__b1, .5s)
+	}
+	.__o4 {
+		@include anim_fadein(__o4, .5s)
+	}
+	.__u1 {
+		@include anim_fadein(__u1, .5s)
+	}
+	.__t2 {
+		@include anim_fadein(__t2, .5s)
+	}
+	.__m3 {
+		@include anim_fadein(__m3, .5s)
+	}
+	.__e5 {
+		@include anim_fadein(__e5, .5s)
+	}
 
-  @include fadein(__a4, 600px);
-  @include fadein(__b1, -1500px);
-  @include fadein(__o4, 500px);
-  @include fadein(__u1, -2300px);
-  @include fadein(__t2, 1000px);
-  @include fadein(__m3, 400px);
-  @include fadein(__e5, -1700px);
+	@include fadein(__a4, 600px);
+	@include fadein(__b1, -1500px);
+	@include fadein(__o4, 500px);
+	@include fadein(__u1, -2300px);
+	@include fadein(__t2, 1000px);
+	@include fadein(__m3, 400px);
+	@include fadein(__e5, -1700px);
 
 }

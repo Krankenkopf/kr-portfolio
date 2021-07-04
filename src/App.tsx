@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import  './styles/style.scss';
 import Particles from "./components/decor/Particles";
-import About from "./components/About";
+import Main from "./components/Main";
 import Header from "./components/Header";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
         <div>
             <div className="wrapper">
                 <Header scrollDistance={scrollDistance}/>
-                <About />
+                <Main />
                 <Particles />
             </div>
             <div style={{height: '10000px'}} className='scrollPage'> </div>

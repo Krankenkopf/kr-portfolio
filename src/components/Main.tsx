@@ -1,22 +1,17 @@
 import React, {CSSProperties, FC, useEffect, useState} from "react";
-import css from "./About.module.css"
 import photo1 from "../assets/img_1.jpg"
-import photo2 from "../../assets/about/img_2.jpg"
-import photo3 from "../../assets/about/img_3.jpg"
-import photo4 from "../../assets/about/img_4.jpg"
-import photo5 from "../../assets/about/img_5.jpg"
-import temp from "../assets/avaB4B.jpg"
 import "../styles/style.scss"
 import HeroDescription from "./heroDescription/HeroDescription";
-import SkillCardsM from "./skillsCards/SkillCardsM";
-import BurgerMenu from "./burgerMenu/BurgerMenu";
 import SkillCards from "./skillsCards/SkillCards";
+import ProjectsCards from "./projectsCards/ProjectsCards";
 
-type TAboutProps = {
+
+
+type TMainProps = {
 
 }
 
-const About: FC<TAboutProps> = () => {
+const Main: FC<TMainProps> = () => {
     const [scrollDistance, setScrollDistance] = useState<number>(0);
     const handleScroll = (e: Event) => {
         const position = Math.ceil(window.pageYOffset/25);
@@ -52,7 +47,7 @@ const About: FC<TAboutProps> = () => {
                 transform: `translateY(${-(scrollDistance-12)*7-120}px)
                     translateZ(10px) 
                     rotateX(${scrollDistance * 3 - 36}deg`,
-            }
+            } as CSSProperties
         }
     }
     const aboutSectStyle = () => {
@@ -78,56 +73,14 @@ const About: FC<TAboutProps> = () => {
                 transition: 'all 300ms 0s',
                 opacity: '1',
                 transform: `translateY(${-(scrollDistance-12)*20}px)`,
-            }
-        }
-    }
-
-
-
-
-    const skillsContainerMStyle = () => {
-        switch (true) {
-            case scrollDistance <= 100:
-                return {
-                    marginTop: `${-scrollDistance * 2 + 220}px`,
-                } as CSSProperties
-            default:
-                return {marginTop: `${20}px`,} as CSSProperties
-        }
-    }
-    const skillsContainerStyle = () => {
-        switch (true) {
-            case scrollDistance > 1500:
-                return {
-                    display: 'none',
-                } as CSSProperties
-            default:
-                return {} as CSSProperties
-        }
-    }
-
-    const decorHorizontalStripStyle = () => {
-        switch (true) {
-            case scrollDistance >= 1400 && scrollDistance<1650: return {
-                width: '100%',
-                height: `${(scrollDistance-1400)/2}px`,
             } as CSSProperties
-            case scrollDistance >= 1650 && scrollDistance < 2900: return {
-                width: '100%',
-                height:  `125px`,
-            } as CSSProperties
-            default: return {display: 'none'} as CSSProperties
         }
     }
-    const aboutPageContainerStyle = () => {
-        switch (true) {
-            case scrollDistance >= 1700: return {
-                backgroundColor: '#202020',
-            } as CSSProperties
 
-            default: return {backgroundColor: '#202020'} as CSSProperties
-        }
-    }
+
+
+
+
 
     return <main className="page">
         <section style={heroSectStyle()} className="page__hero">
@@ -177,55 +130,10 @@ const About: FC<TAboutProps> = () => {
             </div>
         </section>
         <SkillCards scrollDistance={scrollDistance} />
-        <section  className={css.section_2}>
-        {/*    {scrollDistance<1500 && <div className={css.section_2__title}>
-                <h1>My skills</h1>
-            </div>}
-            <div className={css.section_2__skillsContainerM} style={skillsContainerMStyle()}>
-                <SkillCardsM scrollDistance={scrollDistance} />
-            </div>
-            <div className={css.section_2__skillsContainer} style={skillsContainerStyle()}>
-                <div className={css.section_2__skillsContainer__leftFade}> </div>
-                <SkillCards scrollDistance={scrollDistance} />
-                <div className={css.section_2__skillsContainer__rightFade}> </div>
-            </div>*/}
-        </section>
-        <section className={css.section_3}>
-        </section>
-        <section className={css.section_4}>
-          {/*  <div style={{top: '0', ...decorHorizontalStripStyle()}} className={css.section_4__decorStrip}> </div>
-            <div className={css.section_2__title}>
-                <h1>My projects</h1>
-            </div>
-            <div className={css.section_4__projectsContainer}>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-                <div className={css.section_4__projectsContainer_box}>
-                    <img src={temp} alt={'projekt'} />
-                </div>
-            </div>*/}
-
-        </section>
+        <ProjectsCards scrollDistance={scrollDistance} />
     </main>
 }
 
-export default About
+export default Main
+
+export const blankcover = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel est eu tortor porttitor congue. Praesent finibus eleifend mi, eu dictum est scelerisque ut. Nulla sed nulla sed tellus feugiat dignissim a pulvinar sem.'
