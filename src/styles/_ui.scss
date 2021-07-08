@@ -42,6 +42,14 @@ h4 {
   :last-child {
     padding: 0;
   }
+  @media (max-width: $md3+px) {
+    font-size: 18px;
+    line-height: 22 / 18 * 100%;
+  }
+  @media (max-width: $md4+px) {
+    font-size: 15px;
+    line-height: 20 / 15 * 100%;
+  }
 }
 
 

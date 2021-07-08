@@ -18,6 +18,7 @@ import splash7 from "../../assets/skills/splashes/tdd.jpg"
 import splash8 from "../../assets/skills/splashes/cdd.png"
 import splash9 from "../../assets/skills/splashes/ctrlcctrlv.jpg"
 import {blankcover} from "../Main"
+import {useInView} from "react-intersection-observer";
 
 type TSkill = {
     id: number
@@ -136,10 +137,10 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
                     transition: 'all 300ms 0s',
                     transform: `translateY(${0}px)`,
                 } as CSSProperties
-            case scrollDistance >= 12 && scrollDistance <= 40:
+            case scrollDistance >= 12 && scrollDistance <= 4000:
                 return {
                     transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-12)*20}px)`,
+                    transform: `translateY(${-(scrollDistance-12)*15-150}px)`,
                 } as CSSProperties
             default: return {
                 transition: 'all 300ms 0s',
@@ -148,6 +149,14 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
             }
         }
     }
+    const {ref, inView} = useInView({
+        threshold: 0.1
+    })
+    const skillsTitle = 'MY_SKILLS'.split('').map((char, i) => (
+        char !== '_'
+            ? <h2 className={`__L${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 style={{opacity: '0'}}>{char}</h2>
+    ))
     const skillsCards = skillsData.map(s => (
         <div key={s.id} className="skills__card">
             <div className="skills__card__container _container">
@@ -174,20 +183,14 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
                 </div>
         </div>
     </div>))
-    return <section style={skillsSectStyle()} className="page__skills">
+
+    return <section ref={ref} style={skillsSectStyle()} className="page__skills">
         <div className="skills">
             <div className="skills__container _container">
                 <div className="skills__title title">
-                    <div className="stringThree" style={{display: 'flex'}}>
-                        <h2 className="__a4">M</h2>
-                        <h2 className="__b1">Y</h2>
-                        <h2 style={{opacity: '0'}}>_</h2>
-                        <h2 className="__o4">S</h2>
-                        <h2 className="__u1">K</h2>
-                        <h2 className="__t2">I</h2>
-                        <h2 className="__m3">L</h2>
-                        <h2 className="__e5">L</h2>
-                        <h2 className="__e5">S</h2>
+                    <div className="stringThree"
+                         style={inView ? {display: 'flex'} : {display: 'flex', opacity: '0', transition: 'all 300ms 0s',}}>
+                        {skillsTitle}
                     </div>
                 </div>
                 <div className="skills__cards">

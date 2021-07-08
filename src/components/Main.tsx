@@ -3,7 +3,10 @@ import photo1 from "../assets/img_1.jpg"
 import "../styles/style.scss"
 import HeroDescription from "./heroDescription/HeroDescription";
 import SkillCards from "./skillsCards/SkillCards";
-import ProjectsCards from "./projectsCards/ProjectsCards";
+import ProjectCards from "./projectsCards/ProjectCards";
+import fire from "./../assets/fire.mp4";
+import { useInView } from 'react-intersection-observer';
+import Contacts from "./contacts/Contacts";
 
 
 
@@ -76,6 +79,34 @@ const Main: FC<TMainProps> = () => {
             } as CSSProperties
         }
     }
+    const lastSectStyle = () => {
+        switch (true) {
+            case scrollDistance >= 0 && scrollDistance < 100:
+                return {
+                    transition: 'all 300ms 0s',
+                    transform: `translateY(${0}px)`,
+                } as CSSProperties
+            case scrollDistance >= 100 && scrollDistance <= 4000:
+                return {
+                    transition: 'all 300ms 0s',
+                    transform: `translateY(${-(scrollDistance-100)*15-1460}px)`,
+                } as CSSProperties
+            default:
+                return {
+                    transition: 'all 300ms 0s',
+                    opacity: '1',
+                    transform: `translateY(${-(scrollDistance - 12) * 20}px)`,
+                } as CSSProperties
+        }
+    }
+    const {ref, inView} = useInView({
+        threshold: 0.2
+    })
+    const aboutTitle = 'ABOUT_ME'.split('').map((char, i) => (
+        char !== '_'
+            ? <h2 className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 style={{opacity: '0'}}>{char}</h2>
+    ))
 
 
 
@@ -101,19 +132,13 @@ const Main: FC<TMainProps> = () => {
                 </div>
             </div>
         </section>
-        <section style={aboutSectStyle()} className="page__about">
+        <section ref={ref} style={aboutSectStyle()} className="page__about">
             <div className="about">
                 <div className="about__container _container">
                     <div className="about__title title">
-                        <div className="stringThree" style={{display: 'flex'}}>
-                            <h2 className="__a4">A</h2>
-                            <h2 className="__b1">B</h2>
-                            <h2 className="__o4">O</h2>
-                            <h2 className="__u1">U</h2>
-                            <h2 className="__t2">T</h2>
-                            <h2 style={{opacity: '0'}}>_</h2>
-                            <h2 className="__m3">M</h2>
-                            <h2 className="__e5">E</h2>
+                        <div className={"stringThree"}
+                             style={inView ? {display: 'flex'} : {display: 'flex', opacity: '0', transition: 'all 300ms 0s',}}>
+                            {aboutTitle}
                         </div>
                     </div>
                     <div className="about__text text">
@@ -130,7 +155,13 @@ const Main: FC<TMainProps> = () => {
             </div>
         </section>
         <SkillCards scrollDistance={scrollDistance} />
-        <ProjectsCards scrollDistance={scrollDistance} />
+        <ProjectCards scrollDistance={scrollDistance} />
+        <Contacts scrollDistance={scrollDistance} />
+        <div style={lastSectStyle()}>
+            <video className="background__video" autoPlay muted loop>
+                <source src={fire} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
+            </video>
+        </div>
     </main>
 }
 
