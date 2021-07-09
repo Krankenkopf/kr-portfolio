@@ -154,8 +154,8 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
     })
     const skillsTitle = 'MY_SKILLS'.split('').map((char, i) => (
         char !== '_'
-            ? <h2 className={`__L${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
-            : <h2 style={{opacity: '0'}}>{char}</h2>
+            ? <h2 key={i+char} className={`__L${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
     const skillsCards = skillsData.map(s => (
         <div key={s.id} className="skills__card">

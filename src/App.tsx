@@ -3,6 +3,7 @@ import  './styles/style.scss';
 import Particles from "./components/decor/Particles";
 import Main from "./components/Main";
 import Header from "./components/Header";
+import EpicBlock from "./components/decor/EpicBlock";
 
 function App() {
     const [scrollDistance, setScrollDistance] = useState<number>(0);
@@ -25,9 +26,12 @@ function App() {
             <div className="wrapper">
                 <Header scrollDistance={scrollDistance}/>
                 <Main />
+                <EpicBlock scrollDistance={scrollDistance}/>
                 <Particles />
+
+
             </div>
-            <div style={{height: '10000px'}} className='scrollPage'> </div>
+            <div style={{height: '12000px'}} className='scrollPage'> </div>
         </div>
 
     );

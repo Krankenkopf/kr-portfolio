@@ -1,5 +1,7 @@
 import React, {CSSProperties, FC} from "react";
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import {useInView} from "react-intersection-observer";
+import ContactsForm from "./ContactsForm";
 
 const Contacts: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
     const contactsSectStyle = () => {
@@ -27,8 +29,8 @@ const Contacts: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
     })
     const contactsTitle = 'CONTACT_ME'.split('').map((char, i) => (
         char !== '_'
-            ? <h2 className={`__L${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
-            : <h2 style={{opacity: '0'}}>{char}</h2>
+            ? <h2 key={i+char} className={`__L${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
     return (
         <section ref={ref} style={contactsSectStyle()} className="page__contacts">
@@ -40,6 +42,28 @@ const Contacts: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
                             {contactsTitle}
                         </div>
                     </div>
+                    <div className="contacts__body">
+                        <div className="contacts__form">
+                            <ContactsForm />
+                        </div>
+                        <div className="contacts__map__container">
+                            <YMaps query={{ lang: 'en_US' }}>
+                                <Map className="contacts__map" defaultOptions={{tileTransparent: true, brightness: 0}}
+                                     defaultState={{ center: [52.1239, 28.4883], zoom: 13 }}
+                                     width={400} height={400}>
+                                <Placemark geometry={[52.1239, 28.4883]}
+                                        //   properties={{hintContent: '!!!'}}
+                                        //   options={{
+                                        // iconImageHref: '',
+                                        // iconImageSize: [130, 130],
+                                        //iconImageOffset: [-65, -110]
+                                   // }}
+                                />
+                                </Map>
+                            </YMaps>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

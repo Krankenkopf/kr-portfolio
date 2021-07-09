@@ -74,8 +74,8 @@ const ProjectCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
     })
     const projectsTitle = 'MY_PROJECTS'.split('').map((char, i) => (
         char !== '_'
-            ? <h2 className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
-            : <h2 style={{opacity: '0'}}>{char}</h2>
+            ? <h2 key={i+char} className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
     return <section ref={ref} style={projectsSectStyle()} className="page__projects">
         <div className="projects">

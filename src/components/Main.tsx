@@ -4,7 +4,6 @@ import "../styles/style.scss"
 import HeroDescription from "./heroDescription/HeroDescription";
 import SkillCards from "./skillsCards/SkillCards";
 import ProjectCards from "./projectsCards/ProjectCards";
-import fire from "./../assets/fire.mp4";
 import { useInView } from 'react-intersection-observer';
 import Contacts from "./contacts/Contacts";
 
@@ -104,8 +103,8 @@ const Main: FC<TMainProps> = () => {
     })
     const aboutTitle = 'ABOUT_ME'.split('').map((char, i) => (
         char !== '_'
-            ? <h2 className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
-            : <h2 style={{opacity: '0'}}>{char}</h2>
+            ? <h2 key={i+char} className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
 
 
@@ -157,11 +156,7 @@ const Main: FC<TMainProps> = () => {
         <SkillCards scrollDistance={scrollDistance} />
         <ProjectCards scrollDistance={scrollDistance} />
         <Contacts scrollDistance={scrollDistance} />
-        <div style={lastSectStyle()}>
-            <video className="background__video" autoPlay muted loop>
-                <source src={fire} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
-            </video>
-        </div>
+
     </main>
 }
 
