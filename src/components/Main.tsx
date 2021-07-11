@@ -1,22 +1,24 @@
 import React, {CSSProperties, FC, useEffect, useState} from "react";
 import photo1 from "../assets/img_1.jpg"
 import "../styles/style.scss"
-import HeroDescription from "./heroDescription/HeroDescription";
+import HeroDescription from "./hero/heroDescription/HeroDescription";
 import SkillCards from "./skillsCards/SkillCards";
 import ProjectCards from "./projectsCards/ProjectCards";
-import { useInView } from 'react-intersection-observer';
+import {useInView} from 'react-intersection-observer';
 import Contacts from "./contacts/Contacts";
-
+import Hero from "./hero/Hero";
 
 
 type TMainProps = {
-
+    height: number
+    wHeight: number
+    loaded: () => void
 }
 
-const Main: FC<TMainProps> = () => {
+const Main: FC<TMainProps> = ({height, wHeight, loaded}) => {
     const [scrollDistance, setScrollDistance] = useState<number>(0);
     const handleScroll = (e: Event) => {
-        const position = Math.ceil(window.pageYOffset/25);
+        const position = Math.ceil(window.pageYOffset / 25);
         setScrollDistance(position);
     };
     useEffect(() => {
@@ -25,33 +27,9 @@ const Main: FC<TMainProps> = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    console.log("home render")
+    console.log("main render")
 
-    const heroSectStyle = () => {
-        switch (true) {
-            case scrollDistance >= 0 && scrollDistance < 12:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-scrollDistance*10}px)`,
-                   /* transformStyle: 'preserve-3d',*/
-                } as CSSProperties
-            case scrollDistance >= 12 && scrollDistance <= 40:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-12)*7-120}px)
-                    translateZ(${(scrollDistance-12)*7}px)
-                    rotateX(${scrollDistance * 3 - 36}deg`,
-                   /* transformStyle: 'preserve-3d',*/
-                } as CSSProperties
-            default: return {
-                transition: 'all 300ms 0s',
-                opacity: '0',
-                transform: `translateY(${-(scrollDistance-12)*7-120}px)
-                    translateZ(10px) 
-                    rotateX(${scrollDistance * 3 - 36}deg`,
-            } as CSSProperties
-        }
-    }
+
     const aboutSectStyle = () => {
         switch (true) {
             case scrollDistance >= 0 && scrollDistance < 4:
@@ -61,41 +39,30 @@ const Main: FC<TMainProps> = () => {
                 } as CSSProperties
             case scrollDistance >= 4 && scrollDistance < 12:
                 return {
-                     transition: 'all 300ms 0s',
-                     transform: `translateY(${0}px)`,
+                    transition: 'all 300ms 0s',
+                    transform: `translateY(${0}px)`,
                 } as CSSProperties
             case scrollDistance >= 12 && scrollDistance <= 40:
                 return {
                     transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-12)*20}px)`,
+                    transform: `translateY(${-(scrollDistance - 12) * 20}px)`,
                     /*transformStyle: 'preserve-3d',*/
-                } as CSSProperties
-            default: return {
-
-                transition: 'all 300ms 0s',
-                opacity: '1',
-                transform: `translateY(${-(scrollDistance-12)*20}px)`,
-            } as CSSProperties
-        }
-    }
-    const lastSectStyle = () => {
-        switch (true) {
-            case scrollDistance >= 0 && scrollDistance < 100:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${0}px)`,
-                } as CSSProperties
-            case scrollDistance >= 100 && scrollDistance <= 4000:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-100)*15-1460}px)`,
                 } as CSSProperties
             default:
                 return {
+
                     transition: 'all 300ms 0s',
                     opacity: '1',
                     transform: `translateY(${-(scrollDistance - 12) * 20}px)`,
                 } as CSSProperties
+        }
+    }
+    const pageStyle = (): CSSProperties => {
+        return {
+            /*height: `${8000-scrollDistance*25}px`*/
+            transition: 'transform 700ms 0s cubic-bezier(0.3, 1, 1, 1)',
+            transform: `translateY(${height !== 0 && scrollDistance * 25 > height - wHeight ? -height + wHeight : -scrollDistance * 25}px)`,
+            /*transformStyle: 'preserve-3d',*/
         }
     }
     const {ref, inView} = useInView({
@@ -103,47 +70,35 @@ const Main: FC<TMainProps> = () => {
     })
     const aboutTitle = 'ABOUT_ME'.split('').map((char, i) => (
         char !== '_'
-            ? <h2 key={i+char} className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
-            : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
+            ? <h2 key={i + char} className={`__R${i + 1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
+            : <h2 key={i + char} style={{opacity: '0'}}>{char}</h2>
     ))
 
 
-
-
-
-
-    return <main className="page">
-        <section style={heroSectStyle()} className="page__hero">
-            <div className="hero">
-                <div className="hero__container _container">
-                    <div className="hero__desc">
-                        <HeroDescription/>
-                        <button className="hero__btnA btn">
-                            Learn More
-                        </button>
-                    </div>
-                    <div className="hero__img">
-                        <img src={photo1} alt={'img_1'}/>
-                    </div>
-                    <button className="hero__btnB btn">
-                        Learn More
-                    </button>
-                </div>
-            </div>
-        </section>
-        <section ref={ref} style={aboutSectStyle()} className="page__about">
+    return <main className="page" style={pageStyle()}>
+        <Hero scrollDistance={scrollDistance}/>
+        <section ref={ref} className="page__about">
             <div className="about">
                 <div className="about__container _container">
                     <div className="about__title title">
                         <div className={"stringThree"}
-                             style={inView ? {display: 'flex'} : {display: 'flex', opacity: '0', transition: 'all 300ms 0s',}}>
+                             style={inView ? {display: 'flex'} : {
+                                 display: 'flex',
+                                 opacity: '0',
+                                 transition: 'all 300ms 0s',
+                             }}>
                             {aboutTitle}
                         </div>
                     </div>
                     <div className="about__text text">
-                        <p>My name is Raman Khamets. I'm from Belarus. I'm a quality obsessed, detail-oriented frontend developer who have a strong interest in UI effects, animations and creating stunning dynamic user experiences. I live to learn. I love broadening my skills and working towards a goal.</p>
-                        <p>Happily married, child-free, a proud owner of a dozen cats and an extremely mean dog, DIY amateur, a bit a music composer.</p>
-                        <p>Interested in the entire frontend spectrum and working on ambitious projects with positive and open-minded people.</p>
+                        <p>My name is Raman Khamets. I'm from Belarus. I'm a quality obsessed, detail-oriented frontend
+                            developer who have a strong interest in UI effects, animations and creating stunning dynamic
+                            user experiences. I live to learn. I love broadening my skills and working towards a
+                            goal.</p>
+                        <p>Happily married, child-free, a proud owner of a dozen cats and an extremely mean dog, DIY
+                            amateur, a bit a music composer.</p>
+                        <p>Interested in the entire frontend spectrum and working on ambitious projects with positive
+                            and open-minded people.</p>
                     </div>
                     <div>
                         <button className="about__btn btn">
@@ -153,9 +108,9 @@ const Main: FC<TMainProps> = () => {
                 </div>
             </div>
         </section>
-        <SkillCards scrollDistance={scrollDistance} />
-        <ProjectCards scrollDistance={scrollDistance} />
-        <Contacts scrollDistance={scrollDistance} />
+        <SkillCards scrollDistance={scrollDistance}/>
+        <ProjectCards scrollDistance={scrollDistance} loaded={loaded}/>
+        <Contacts scrollDistance={scrollDistance}/>
 
     </main>
 }

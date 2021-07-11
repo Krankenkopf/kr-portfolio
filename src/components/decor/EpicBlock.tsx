@@ -15,31 +15,20 @@ import frame11 from "../../assets/epic/pre_frame11.png"
 
 type TEpicBlockProps = {
     scrollDistance: number
+    height: number
+    wHeight: number
+    loaded: () => void
 }
-const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance}) => {
+const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance, height, wHeight, loaded}) => {
 
-    const lastSectStyle = () => {
-        switch (true) {
-            case scrollDistance >= 0 && scrollDistance < 100:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${0}px)`,
-                } as CSSProperties
-            case scrollDistance >= 100 && scrollDistance <= 4000:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-100)*15-1460}px)`,
-                } as CSSProperties
-            default:
-                return {
-                    transition: 'all 300ms 0s',
-                    opacity: '1',
-                    transform: `translateY(${-(scrollDistance - 12) * 20}px)`,
-                } as CSSProperties
+    const lastSectStyle = (): CSSProperties => {
+        return {
+            transition: 'transform 700ms 0s cubic-bezier(0.3, 1, 1, 1)',
+            transform: `translateY(${height !==0 && scrollDistance * 25 > height - wHeight ? -height + wHeight : -scrollDistance * 25}px)`,
         }
     }
     const {ref, inView} = useInView({
-        threshold: 0.2
+        threshold: 0.3
     })
     const frames = [
         {
@@ -99,7 +88,7 @@ const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance}) => {
         },
     ].map(fr => (
         <span key={fr.id} className="epic__hero__frame">
-            <img src={fr.imgSrc} alt={fr.imgAlt} />
+            <img src={fr.imgSrc} alt={fr.imgAlt}/>
         </span>))
     return (
         <div ref={ref} className="epic__block" style={lastSectStyle()}>
@@ -110,7 +99,7 @@ const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance}) => {
                         {frames}
                     </div>
                 </div>
-                <video className="epic__fire" autoPlay muted loop>
+                <video className="epic__fire" autoPlay muted loop onLoadedData={loaded}>
                     <source src={fire} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
                 </video>
                 <div className="epic__gradient"> </div>

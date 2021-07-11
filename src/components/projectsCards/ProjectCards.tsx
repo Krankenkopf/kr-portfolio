@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from "react";
+import React, {CSSProperties, FC, useState} from "react";
 import temp from "./../../assets/projects/temp.png"
 import project1 from "./../../assets/projects/samurai.png"
 import project2 from "./../../assets/projects/oregally.png"
@@ -6,7 +6,7 @@ import project3 from "./../../assets/projects/dadlinir.png"
 import {useInView} from "react-intersection-observer";
 
 
-const ProjectCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
+const ProjectCards: FC<{ scrollDistance: number, loaded: () => void }> = ({scrollDistance, loaded}) => {
     const projectsData = [
         {
             id: 1,
@@ -27,6 +27,16 @@ const ProjectCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
             projectDesc: 'Todolist App',
         },
     ]
+    const [loading, addStep] = useState<Array<boolean>>(() => projectsData.map(() => false))
+    const onImgLoad = () => {
+        const current = [...loading]
+        current.splice(0, 1)
+        current.push(true)
+        addStep(current)
+        if (!current.some(a => !a)) {
+            loaded()
+        }
+    }
     const projectsSectStyle = () => {
         switch (true) {
             case scrollDistance >= 0 && scrollDistance < 100:
@@ -51,7 +61,7 @@ const ProjectCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
         <div key={p.id} className="projects__card">
                 <div className="projects__card__img">
                     <a href=''>
-                        <img src={p.projectImg} alt={p.projectName[0].toLowerCase()} />
+                        <img src={p.projectImg} alt={p.projectName[0].toLowerCase()} onLoad={onImgLoad} />
                         <div className="projects__card__anchor">View project</div>
                     </a>
 
@@ -77,7 +87,7 @@ const ProjectCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
             ? <h2 key={i+char} className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
             : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
-    return <section ref={ref} style={projectsSectStyle()} className="page__projects">
+    return <section ref={ref} className="page__projects">
         <div className="projects">
             <div className="projects__container _container">
                 <div className="projects__title title">

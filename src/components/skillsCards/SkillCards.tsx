@@ -184,7 +184,7 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
         </div>
     </div>))
 
-    return <section ref={ref} style={skillsSectStyle()} className="page__skills">
+    return <section ref={ref} className="page__skills">
         <div className="skills">
             <div className="skills__container _container">
                 <div className="skills__title title">

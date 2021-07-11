@@ -16,12 +16,6 @@ const Header: FC<THeaderProps> = ({scrollDistance}) => {
     return <header className="header">
         <div className="header__content _container">
             <div className="header__menu menu">
-                <div className="menu__icon icon-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
                 <nav className={menyBodyStyle}>
                     <ul className="menu__list">
                         <li><a href="" className="menu__link">About</a></li>
