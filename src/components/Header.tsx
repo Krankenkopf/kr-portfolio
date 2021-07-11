@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import  "../styles/style.scss"
 import BurgerMenu from "./burgerMenu/BurgerMenu";
-import css from "./burgerMenu/BurgerMenu.module.css";
+import logo from "../assets/png/kranktitle.png"
 
 type THeaderProps = {
     scrollDistance: number
@@ -15,6 +15,9 @@ const Header: FC<THeaderProps> = ({scrollDistance}) => {
     const menyBodyStyle = `menu__body ${status ? "_active" : null}`
     return <header className="header">
         <div className="header__content _container">
+            <div className="header__logo">
+                <img src={logo} alt="logo"/>
+            </div>
             <div className="header__menu menu">
                 <nav className={menyBodyStyle}>
                     <ul className="menu__list">
@@ -27,7 +30,7 @@ const Header: FC<THeaderProps> = ({scrollDistance}) => {
                 <BurgerMenu toggleMenu={toggleMenu}/>
             </div>
 
-            <div style={{position: 'absolute', top: '20px', zIndex: 70}}>{scrollDistance} </div>
+       {/*     <div style={{position: 'absolute', top: '20px', zIndex: 70}}>{scrollDistance} </div>*/}
         </div>
     </header>
 }

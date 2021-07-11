@@ -308,7 +308,7 @@
 
 			}
 		}
-
+		// .skills__card__splashDesc
 		&__splashDesc {
 			position: absolute;
 			cursor: pointer;
@@ -321,6 +321,7 @@
 			top: 75px;
 			z-index: 6;
 			transform: rotate(-10deg);
+			animation: __splashPulse infinite 1.5s linear;
 			@media (max-width: $md3+px) {
 				right: 20px;
 				top: 100px;
@@ -343,6 +344,15 @@
 
 			}
 
+		}
+		&:nth-child(3n-1) .skills__card__splashDesc {
+			animation: __splashPulse infinite 1.5s 0.5s linear;
+		}
+		&:nth-child(3n) .skills__card__splashDesc {
+			animation: __splashPulse infinite 1.5s linear;
+		}
+		&:nth-child(3n+1) .skills__card__splashDesc {
+			animation: __splashPulse infinite 1.5s 1s linear;
 		}
 
 		// .skills__card__title
@@ -494,12 +504,6 @@
 		&:nth-child(2n) {
 			flex-direction: row-reverse;
 		}
-		&:last-child {
-		/*	transform: translateX(50%);*/
-			@media (max-width: $md3+px) {
-				transform: none;
-			}
-		}
 
 
 		// .projects__card__container
@@ -529,6 +533,7 @@
 				object-fit: cover;
 				&:hover + div {
 					transform: rotate(0deg);
+					animation: bounce 1 1s .5s linear;
 				}
 
 			}
@@ -547,9 +552,10 @@
 				font-weight: bold;
 				transform: rotate(90deg);
 				transform-origin: 500 - 34px;
-				transition: all 1s;
+				transition: transform .5s cubic-bezier(1, 0.3, 1, 0.5);
 				&:hover {
 					transform: rotate(0deg);
+					animation: bounce 1 1s .5s linear;
 				}
 				@media (max-width: $md2+px) {
 					font-size: 54px;
@@ -982,3 +988,51 @@ $frame-duration: $time / $number-of-frames;
 	@include fadein(__R11, -1700px);
 
 }
+
+@keyframes bounce {
+	1% {
+		transform: rotate(0deg);
+	}
+	5% {
+		transform: rotate(10deg);
+	}
+	13% {
+		transform: rotate(19deg);
+	}
+	15% {
+		transform: rotate(20deg);
+	}
+	20% {
+		transform: rotate(19deg);
+	}
+	25% {
+		transform: rotate(10deg);
+	}
+	30% {
+		transform: rotate(0deg);
+	}
+	40% {
+		transform: rotate(5deg);
+	}
+	50% {
+		transform: rotate(0deg);
+	}
+	60% {
+		transform: rotate(1deg);
+	}
+	70% {
+		transform: rotate(0deg);
+	}
+	73% {
+		transform: rotate(0.5deg);
+	}
+	80% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@include splashPulse()
+
