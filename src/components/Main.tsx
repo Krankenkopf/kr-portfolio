@@ -9,39 +9,23 @@ import About from "./about/About";
 
 
 type TMainProps = {
-    height: number
-    wHeight: number
     loaded: () => void
+    isLoaded: boolean
 }
 
-const Main: FC<TMainProps> = ({height, wHeight, loaded}) => {
-    const [scrollDistance, setScrollDistance] = useState<number>(0);
-    const handleScroll = (e: Event) => {
-        const position = Math.ceil(window.pageYOffset / 25);
-        setScrollDistance(position);
-    };
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, {passive: true});
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+const Main: FC<TMainProps> = ({loaded, isLoaded}) => {
+
+
+
     console.log("main render")
 
-    const pageStyle = (): CSSProperties => {
-        return {
-            transition: 'transform 700ms 0s cubic-bezier(0.3, 1, 1, 1)',
-            transform: `translateY(${height !== 0 && scrollDistance * 25 > height - wHeight ? -height + wHeight : -scrollDistance * 25}px)`,
-        }
-    }
 
-
-    return <main className="page" style={pageStyle()}>
-        <Hero scrollDistance={scrollDistance}/>
+    return <main className="page">
+        <Hero loaded={loaded} isLoaded={isLoaded}/>
         <About/>
-        <SkillCards scrollDistance={scrollDistance}/>
-        <ProjectCards scrollDistance={scrollDistance} loaded={loaded}/>
-        <Contacts scrollDistance={scrollDistance}/>
+        <SkillCards/>
+        <ProjectCards loaded={loaded}/>
+        <Contacts/>
     </main>
 }
 

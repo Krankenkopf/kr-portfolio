@@ -14,19 +14,10 @@ import frame10 from "../../assets/epic/pre_frame10.png"
 import frame11 from "../../assets/epic/pre_frame11.png"
 
 type TEpicBlockProps = {
-    scrollDistance: number
-    height: number
-    wHeight: number
     loaded: () => void
 }
-const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance, height, wHeight, loaded}) => {
+const EpicBlock: FC<TEpicBlockProps> = ({loaded}) => {
 
-    const lastSectStyle = (): CSSProperties => {
-        return {
-            transition: 'transform 700ms 0s cubic-bezier(0.3, 1, 1, 1)',
-            transform: `translateY(${height !==0 && scrollDistance * 25 > height - wHeight ? -height + wHeight : -scrollDistance * 25}px)`,
-        }
-    }
     const {ref, inView} = useInView({
         threshold: 0.3
     })
@@ -91,7 +82,7 @@ const EpicBlock: FC<TEpicBlockProps> = ({scrollDistance, height, wHeight, loaded
             <img src={fr.imgSrc} alt={fr.imgAlt}/>
         </span>))
     return (
-        <div ref={ref} className="epic__block" style={lastSectStyle()}>
+        <div ref={ref} className="epic__block">
             <div className="epic">
                 <div className="epic__hero">
                     <div style={inView ? {} : {animationName: 'none'}}

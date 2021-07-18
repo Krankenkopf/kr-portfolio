@@ -31,7 +31,7 @@ type TSkill = {
     skillDesc: string
 }
 
-const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
+const SkillCards: FC<{}> = () => {
     const skillsData: Array<TSkill> = [
         {
             id: 1,
@@ -125,30 +125,6 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
         },
     ]
 
-    const skillsSectStyle = () => {
-        switch (true) {
-            case scrollDistance >= 0 && scrollDistance < 4:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${0}px)`,
-                } as CSSProperties
-            case scrollDistance >= 4 && scrollDistance < 12:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${0}px)`,
-                } as CSSProperties
-            case scrollDistance >= 12 && scrollDistance <= 4000:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-12)*15-150}px)`,
-                } as CSSProperties
-            default: return {
-                transition: 'all 300ms 0s',
-                opacity: '1',
-                transform: `translateY(${-(scrollDistance-12)*20}px)`,
-            }
-        }
-    }
     const {ref, inView} = useInView({
         threshold: 0.1
     })
@@ -171,7 +147,7 @@ const SkillCards: FC<{ scrollDistance: number }> = ({scrollDistance}) => {
                             : (<div key={i+n}><h3>{n}</h3></div>))}
                     </div>
                 </div>
-                <div className="skills__card__splashDesc">
+                <div className="skills__card__splashDesc" style={inView ? {} : {animationName: 'none'}}>
                     {s.skillSplashDesc}
                 </div>
                 <div className="skills__card__splash">

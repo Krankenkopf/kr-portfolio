@@ -5,8 +5,11 @@ import project2 from "./../../assets/projects/oregally.png"
 import project3 from "./../../assets/projects/dadlinir.png"
 import {useInView} from "react-intersection-observer";
 
+type TProjectCards = {
+    loaded: () => void
+}
 
-const ProjectCards: FC<{ scrollDistance: number, loaded: () => void }> = ({scrollDistance, loaded}) => {
+const ProjectCards: FC<TProjectCards> = ({loaded}) => {
     const projectsData = [
         {
             id: 1,
@@ -37,26 +40,7 @@ const ProjectCards: FC<{ scrollDistance: number, loaded: () => void }> = ({scrol
             loaded()
         }
     }
-    const projectsSectStyle = () => {
-        switch (true) {
-            case scrollDistance >= 0 && scrollDistance < 100:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${0}px)`,
-                } as CSSProperties
-            case scrollDistance >= 100 && scrollDistance <= 4000:
-                return {
-                    transition: 'all 300ms 0s',
-                    transform: `translateY(${-(scrollDistance-100)*15-1460}px)`,
-                } as CSSProperties
-            default:
-                return {
-                    transition: 'all 300ms 0s',
-                    opacity: '1',
-                    transform: `translateY(${-(scrollDistance - 12) * 20}px)`,
-                } as CSSProperties
-        }
-    }
+
     const projectsCards = projectsData.map(p => (
         <div key={p.id} className="projects__card">
                 <div className="projects__card__img">

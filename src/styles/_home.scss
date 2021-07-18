@@ -43,6 +43,7 @@
 	align-items: center;
 	padding: 120px 33px 40px 33px;
 	z-index: 10;
+	transition: all 500ms 0s cubic-bezier(0.3, 1, 1, 1);
 	@media (max-width: $md2+px) {
 		padding: 120px 25px 40px 25px;
 	}
@@ -760,140 +761,6 @@ $frame-duration: $time / $number-of-frames;
 
 @media (prefers-reduced-motion: no-preference) {
 
-	/*-------------------hero first string---------------------*/
-	.__h1 {
-		@include anim_fadein(__h1, 0s)
-	}
-	.__i1 {
-		@include anim_fadein(__i1, 0s)
-	}
-	.__a1 {
-		@include anim_fadein(__a1, 0s)
-	}
-	.__l1 {
-		@include anim_fadein(__l1, 0s)
-	}
-	.__l2 {
-		@include anim_fadein(__l2, 0s)
-	}
-	.__exc1 {
-		@include anim_fadein(__exc1, 0s)
-	}
-
-	@include fadein(__h1, 1300px);
-	@include fadein(__i1, -600px);
-	@include fadein(__a1, 2300px);
-	@include fadein(__l1, -500px);
-	@include fadein(__l2, -600px);
-	@include fadein(__exc1, 1500px);
-
-	/*-------------------hero second string---------------------*/
-	.__i2 {
-		@include anim_fadein(__i2, 1s)
-	}
-	.__apo1 {
-		@include anim_fadein(__apo1, 1s)
-	}
-	.__m1 {
-		@include anim_fadein(__m1, 1s)
-	}
-	.__r1 {
-		@include anim_fadein(__r1, 1s)
-	}
-	.__a2 {
-		@include anim_fadein(__a2, 1s)
-	}
-	.__m2 {
-		@include anim_fadein(__m2, 1s)
-	}
-	.__a3 {
-		@include anim_fadein(__a3, 1s)
-	}
-	.__n1 {
-		@include anim_fadein(__n1, 1s)
-	}
-
-	@include fadein(__i2, -600px);
-	@include fadein(__apo1, 1300px);
-	@include fadein(__m1, -500px);
-	@include fadein(__r1, 2300px);
-	@include fadein(__a2, 1500px);
-	@include fadein(__m2, -400px);
-	@include fadein(__a3, 1500px);
-	@include fadein(__n1, -1500px);
-
-	/*-------------------hero third string---------------------*/
-	.__f1 {
-		@include anim_fadein(__f1, 2s)
-	}
-	.__r2 {
-		@include anim_fadein(__r2, 2s)
-	}
-	.__o2 {
-		@include anim_fadein(__o2, 2s)
-	}
-	.__n2 {
-		@include anim_fadein(__n2, 2s)
-	}
-	.__t1 {
-		@include anim_fadein(__t1, 2s)
-	}
-	.__e1 {
-		@include anim_fadein(__e1, 2s)
-	}
-	.__n3 {
-		@include anim_fadein(__n3, 2s)
-	}
-	.__d1 {
-		@include anim_fadein(__d1, 2s)
-	}
-	.__d2 {
-		@include anim_fadein(__d2, 2s)
-	}
-	.__e2 {
-		@include anim_fadein(__e2, 2s)
-	}
-	.__v1 {
-		@include anim_fadein(__v1, 2s)
-	}
-	.__e3 {
-		@include anim_fadein(__e3, 2s)
-	}
-	.__l3 {
-		@include anim_fadein(__l3, 2s)
-	}
-	.__o3 {
-		@include anim_fadein(__o3, 2s)
-	}
-	.__p1 {
-		@include anim_fadein(__p1, 2s)
-	}
-	.__e4 {
-		@include anim_fadein(__e4, 2s)
-	}
-	.__r3 {
-		@include anim_fadein(__r3, 2s)
-	}
-
-	@include fadein(__f1, -600px);
-	@include fadein(__r2, 1300px);
-	@include fadein(__o2, -500px);
-	@include fadein(__n2, 2300px);
-	@include fadein(__t1, 1500px);
-	@include fadein(__e1, -400px);
-	@include fadein(__n3, 1500px);
-	@include fadein(__d1, -1500px);
-	@include fadein(__d2, 1500px);
-	@include fadein(__e2, -500px);
-	@include fadein(__v1, 2300px);
-	@include fadein(__e3, 1300px);
-	@include fadein(__l3, 1300px);
-	@include fadein(__o3, -1000px);
-	@include fadein(__p1, 2000px);
-	@include fadein(__e4, -600px);
-	@include fadein(__r3, -1500px);
-
-
 	/*-------------------title string---------------------*/
 
 	.__L1 {
@@ -929,7 +796,28 @@ $frame-duration: $time / $number-of-frames;
 	.__L11 {
 		@include anim_fadein(__L11, 0s)
 	}
-
+	.__L12 {
+		@include anim_fadein(__L12, 0s)
+	}
+	.__L13 {
+		@include anim_fadein(__L13, 0s)
+	}
+	.__L14 {
+		@include anim_fadein(__L14, 0s)
+	}
+	.__L15 {
+		@include anim_fadein(__L15, 0s)
+	}
+	.__L16 {
+		@include anim_fadein(__L16, 0s)
+	}
+	.__L17 {
+		@include anim_fadein(__L17, 0s)
+	}
+	.__L18 {
+		@include anim_fadein(__L18, 0s)
+	}
+//-----------------------------------------
 	.__R1 {
 		@include anim_fadein(__R1, 0s)
 	}
@@ -975,6 +863,14 @@ $frame-duration: $time / $number-of-frames;
 	@include fadein(__L9, 1900px);
 	@include fadein(__L10, -600px);
 	@include fadein(__L11, 1700px);
+	@include fadein(__L12, -500px);
+	@include fadein(__L13, 2300px);
+	@include fadein(__L14, -1000px);
+	@include fadein(__L15, -900px);
+	@include fadein(__L16, 1400px);
+	@include fadein(__L17, -1100px);
+	@include fadein(__L18, 1500px);
+
 	@include fadein(__R1, 600px);
 	@include fadein(__R2, -1700px);
 	@include fadein(__R3, 500px);
@@ -986,6 +882,17 @@ $frame-duration: $time / $number-of-frames;
 	@include fadein(__R9, -1900px);
 	@include fadein(__R10, 600px);
 	@include fadein(__R11, -1700px);
+
+	/*-------------------special chars---------------------*/
+
+	.__exc1 {
+		@include anim_fadein(__exc1, 0s)
+	}
+	.__apo1 {
+		@include anim_fadein(__apo1, 1s)
+	}
+	@include fadein(__exc1, 1500px);
+	@include fadein(__apo1, 1300px);
 
 }
 

@@ -1,73 +1,73 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import  './styles/style.scss';
+import React, {useEffect, useRef, useState} from 'react';
+import './styles/style.scss';
 import Particles from "./components/decor/Particles";
 import Main from "./components/Main";
 import Header from "./components/Header";
 import EpicBlock from "./components/decor/EpicBlock";
 import Footer from "./components/Footer";
 import PreLoader from "./components/decor/PreLoader";
-
-function useWindowSize() {
-    const [size, setSize] = useState([0, 0]);
-    useLayoutEffect(() => {
-        function updateSize() {
-            setSize([window.innerWidth, window.innerHeight]);
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-    }, []);
-    return size;
-}
+import {useWindowSize} from "./hooks/useWindowSize";
 
 function App() {
-    const [scrollDistance, setScrollDistance] = useState<number>(0);
     const [height, setHeight] = useState<number>(0)
-    const [windowWidth, windowHeight] = useWindowSize();
-    const [loading, setLoading] = useState<boolean>(true)
+    const size = useWindowSize()
 
-    const handleScroll = (e: Event) => {
-        const position = Math.ceil(window.pageYOffset/25);
-        setScrollDistance(position);
-    };
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, {passive: true});
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+
+    const [loadingStages, incLoadingStages] = useState(0)
+    const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
     const loaded = () => {
-        setLoading(false)
+        incLoadingStages(loadingStages + 1)
     }
-    const loaded2 = () => {
+    if (loadingStages === 4 && !isLoaded) {
+        setIsLoaded(true)
     }
-    useEffect( () => {
+    const ref = useRef<HTMLDivElement>(null)
+    useEffect(() => {
         if (ref.current
-            && ref.current.offsetHeight > windowHeight
-            && !loading) {
+            && ref.current.offsetHeight > size.height
+            && isLoaded) {
             ref.current && setHeight(ref.current?.offsetHeight)
-            console.log('height ' + height)
         }
 
-    }, [windowWidth, windowHeight, height, loading])
+    }, [size, isLoaded])
     console.log('app render')
-/*    console.log(window.innerWidth)*/
-    const ref = useRef<HTMLDivElement>(null)
 
+    // scrolling page processing
+    const scrollContainer = useRef<HTMLDivElement>(null);
+    const scrollData = {
+        ease: 0.1,
+        current: 0,
+        previous: 0,
+        rounded: 0
+    }
+    useEffect(() => {
+        requestAnimationFrame(() => scrolling());
+    }, [])
+    const scrolling = () => {
+        scrollData.current = window.scrollY
+        scrollData.previous += (scrollData.current - scrollData.previous) * scrollData.ease
+        scrollData.rounded = Math.round(scrollData.previous * 100) / 100
+        if (scrollContainer.current) {
+            scrollContainer.current.style.transform = `translate3d(0, -${scrollData.rounded}px, 0)`
+        }
+        requestAnimationFrame(() => scrolling());
+    }
     return (
         <div style={{height: `${height}px`}}>
             <div ref={ref} className="wrapper">
-                {!loading && <Header scrollDistance={scrollDistance}/>}
-                <Main  height={height} wHeight={windowHeight} loaded={loaded2}/>
-                <EpicBlock scrollDistance={scrollDistance} height={height} wHeight={windowHeight} loaded={loaded}/>
-                <Footer scrollDistance={scrollDistance} height={height} wHeight={windowHeight}/>
-                {loading && <PreLoader />}
-                <Particles />
-
+                <Header loaded={loaded}
+                        isLoaded={isLoaded}/>
+                <div ref={scrollContainer} style={{transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)',}}>
+                    <Main loaded={loaded}
+                          isLoaded={isLoaded}/>
+                    <EpicBlock loaded={loaded}/>
+                    <Footer />
+                </div>
+                <Particles/>
+                {!isLoaded && <PreLoader/>}
 
             </div>
-{/*
-            <div style={{height: `${height}px`}} className='scrollPage'> </div>*/}
         </div>
 
     );

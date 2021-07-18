@@ -4,19 +4,20 @@ import BurgerMenu from "./burgerMenu/BurgerMenu";
 import logo from "../assets/png/kranktitle.png"
 
 type THeaderProps = {
-    scrollDistance: number
+    loaded: () => void
+    isLoaded: boolean
 }
 
-const Header: FC<THeaderProps> = ({scrollDistance}) => {
+const Header: FC<THeaderProps> = ({ loaded, isLoaded}) => {
     const [status, setStatus] = useState(false)
     const toggleMenu = (status: boolean) => {
         setStatus(status)
     }
     const menyBodyStyle = `menu__body ${status ? "_active" : null}`
-    return <header className="header">
+    return <header className="header" style={isLoaded ? {} : {opacity: 0}}>
         <div className="header__content _container">
             <div className="header__logo">
-                <img src={logo} alt="logo"/>
+                <img src={logo} alt="logo" onLoad={loaded}/>
             </div>
             <div className="header__menu menu">
                 <nav className={menyBodyStyle}>
@@ -29,8 +30,6 @@ const Header: FC<THeaderProps> = ({scrollDistance}) => {
                 </nav>
                 <BurgerMenu toggleMenu={toggleMenu}/>
             </div>
-
-       {/*     <div style={{position: 'absolute', top: '20px', zIndex: 70}}>{scrollDistance} </div>*/}
         </div>
     </header>
 }
