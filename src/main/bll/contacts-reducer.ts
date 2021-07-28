@@ -1,15 +1,19 @@
 import { Dispatch } from 'redux'
 import {sendEmailAPI} from "../dal/api";
+import {TContactsFormData} from "../ui/u5-contacts/ContactsForm";
 
-export type TEmailSendingStatus = 'sending' | 'idle' | 'succeeded' | 'failed'
+export type TEmailSendingStatus = 'Sending...' | 'Idle' | 'Succeeded!' | 'Failed!'
 const initialState = {
-    emailSendingStatus: 'idle' as TEmailSendingStatus
+    emailSendingStatus: 'Idle' as TEmailSendingStatus,
+    emailFormErrorDescription: ''
 }
 type InitialStateType = typeof initialState
 
 export const contactsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'EMAILSENDING':
+        case 'SET-SENDING-STATUS':
+            return {...state, ...action.payload}
+        case 'SET-ERROR-DESC':
             return {...state, ...action.payload}
         default:
             return state
@@ -17,14 +21,25 @@ export const contactsReducer = (state: InitialStateType = initialState, action: 
 }
 
 export const setEmailSendStatus = (status: TEmailSendingStatus) =>
-    ({type: 'EMAILSENDING', payload: {emailSendingStatus: status}} as const)
+    ({type: 'SET-SENDING-STATUS', payload: {emailSendingStatus: status}} as const)
 
-export const sendEmail = () => async (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setEmailSendStatus('sending'))
-    const response = await sendEmailAPI.sendEmail()
-    if (response) console.log(response.data)
+export const setFormErrorDescription = (desc: string) =>
+    ({type: 'SET-ERROR-DESC', payload: {emailFormErrorDescription: desc}} as const)
+
+export const sendEmail = (formData: TContactsFormData) => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setEmailSendStatus('Sending...'))
+    try {
+        const response = await sendEmailAPI.sendEmail(formData)
+        if (response.data === 'OK') {
+            dispatch(setEmailSendStatus('Succeeded!'))
+        }
+    }
+    catch (e) {
+        dispatch(setEmailSendStatus('Failed!'))
+    }
 }
 
 export type TSetEmailSendStatus = ReturnType<typeof setEmailSendStatus>
-type ActionsType = TSetEmailSendStatus
+export type TSetFormErrorDescription = ReturnType<typeof setFormErrorDescription>
+type ActionsType = TSetEmailSendStatus | TSetFormErrorDescription
 

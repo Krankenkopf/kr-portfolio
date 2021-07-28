@@ -1,18 +1,25 @@
 import React, {useEffect, useRef, useState} from 'react';
 import '../styles/style.scss';
-import ParticlesLower from "./ui/decor/ParticlesLower";
+import ParticlesLower from "./ui/u0-common/decor/ParticlesLower";
 import Main from "./ui/Main";
 import Header from "./ui/Header";
-import EpicBlock from "./ui/decor/EpicBlock";
+import EpicBlock from "./ui/u0-common/decor/EpicBlock";
 import Footer from "./ui/Footer";
-import PreLoader from "./ui/decor/PreLoader";
+import PreLoader from "./ui/u0-common/decor/PreLoader";
 import {useWindowSize} from "../utils/hooks/useWindowSize";
-import ParticlesUpper from "./ui/decor/ParticlesUpper";
+import ParticlesUpper from "./ui/u0-common/decor/ParticlesUpper";
+import InfoSnackbar from "./ui/u0-common/infoSnackbar/InfoSnackbar";
+import {useSelector} from "react-redux";
+import {TState} from "./bll/store";
+import {TEmailSendingStatus} from "./bll/contacts-reducer";
+import ErrorSnackbar from "./ui/u0-common/errorSnackbar/ErrorSnackbar";
 
 function App() {
     const [height, setHeight] = useState<number>(0)
     const size = useWindowSize()
 
+    const error = useSelector<TState, string>(state => state.contacts.emailFormErrorDescription)
+    const info = useSelector<TState, TEmailSendingStatus>(state => state.contacts.emailSendingStatus)
 
     const [loadingStages, incLoadingStages] = useState(0)
     const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -109,6 +116,8 @@ function App() {
         <div style={menuStatus
             ? {height: `${height}px`, position: 'fixed',  overflowY: 'hidden'}
             : {height: `${height}px`,}}>
+            {info !== 'Idle' && <InfoSnackbar info={info}/>}
+            <ErrorSnackbar error={error}/>
             <div ref={ref} className="wrapper" style={menuStatus
                 ? {paddingRight: '17px',}
                 : {}}>

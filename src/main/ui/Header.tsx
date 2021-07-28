@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import "../../styles/style.scss"
-import BurgerMenu from "./burgerMenu/BurgerMenu";
+import BurgerMenu from "./u0-common/burgerMenu/BurgerMenu";
 import logo from "../../assets/png/kranktitle.png"
 
 type THeaderProps = {

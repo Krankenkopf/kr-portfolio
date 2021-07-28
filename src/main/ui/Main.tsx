@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import "../../styles/style.scss"
-import SkillCards from "./skillsCards/SkillCards";
-import ProjectCards from "./projectsCards/ProjectCards";
-import Contacts from "./contacts/Contacts";
-import Hero from "./hero/Hero";
-import About from "./about/About";
+import SkillCards from "./u3-skillsCards/SkillCards";
+import ProjectCards from "./u4-projectsCards/ProjectCards";
+import Contacts from "./u5-contacts/Contacts";
+import Hero from "./u1-hero/Hero";
+import About from "./u2-about/About";
 
 
 type TMainProps = {

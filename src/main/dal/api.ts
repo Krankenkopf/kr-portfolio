@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {TContactsFormData} from "../ui/u5-contacts/ContactsForm";
 
 export const instance = axios.create(
     {
@@ -7,16 +8,16 @@ export const instance = axios.create(
 )
 
 export const sendEmailAPI = {
-    sendEmail() {
+    sendEmail(formData: TContactsFormData) {
         return instance.post('email/send', {
             service_id: 'default_service',
             template_id: 'template_it8qs9o',
             user_id: 'user_47zXvv30deMUeZQJsqo9o',
             template_params: {
-                'name': 'James',
-                'email': 'eee@gmail.com',
-                'subject': 'yo',
-                'message': 'some message',
+                'name': formData.name,
+                'email': formData.email,
+                'subject': formData.subject,
+                'message': formData.message,
             },
             accessToken: '13a93efe63589eb6be5aec66f15aca04'
         })

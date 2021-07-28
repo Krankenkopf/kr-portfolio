@@ -944,3 +944,11 @@ $frame-duration: $time / $number-of-frames;
 
 @include splashPulse()
 
+@keyframes blinking {
+	50% {
+		border-color: $primary
+	}
+	100% {
+		border-color: #ff0000;
+	}
+}

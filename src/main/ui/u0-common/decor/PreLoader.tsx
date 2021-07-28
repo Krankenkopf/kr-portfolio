@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import logo from "../../../assets/png/kranklogo.png"
+import logo from "../../../../assets/png/kranklogo.png"
 type TPreLoaderProps = {
     
 };
