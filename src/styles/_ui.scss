@@ -66,11 +66,10 @@ h4 {
 	// .preloader__container
 	&__container {
 		position: absolute;
-		width: 20%;
-		height: 20%;
+		width: 25%;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -100%);
+		transform: translate(-50%, -50%);
 		z-index: 5;
 		opacity: 0;
 		animation: pl__fade 1s forwards 1 ;

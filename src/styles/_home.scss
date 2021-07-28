@@ -690,6 +690,7 @@ $frame-duration: $time / $number-of-frames;
 		bottom: -4px;
 		width: 100%;
 		right: 0;
+		z-index: 0;
 		@media (max-width: $md3+px) {
 			width: 150%;
 			right: 25%;

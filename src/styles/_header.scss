@@ -5,18 +5,21 @@
   background-color: $bg;
   z-index: 100;
   height: 80px;
-  padding: 0 33px 0;
+
   @media (max-width: $md4+px) {
     height: 66px;
   }
 
   &__content {
-
     margin: 0 auto;
     max-width: 1200px;
     height: inherit;
     display: flex;
     justify-content: space-between;
+    padding: 0 33px 0;
+    @media (max-width: $md4+px) {
+      padding: 0 11px 0;
+    }
   }
   // .header__logo
   &__logo {
@@ -61,9 +64,12 @@
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         transition: transform .5s ease 0s, backdrop-filter 5s ease-in 0s;
+        animation: bgSwitch 5s 1 .5s forwards;
       }
     }
   }
+
+
   //.menu__list
   &__list {
     li {
@@ -96,11 +102,26 @@
     @media (min-width: $md3+px) {
       &:hover {
         color: $secondary;
+
       }
     }
     @media (max-width: $md3+px) {
-        font-size: 40px;
+        font-weight: 900;
+        font-size: 45px;
+        -webkit-text-stroke: 3px $secondary;
     }
+  }
+}
+
+@keyframes bgSwitch {
+  0% {
+    background-color: rgba(1, 1, 1, 0);
+  }
+  20% {
+    background-color: rgba(1, 1, 1, 0.4);
+  }
+  100% {
+    background-color: rgba(1, 1, 1, 0);
   }
 }
 

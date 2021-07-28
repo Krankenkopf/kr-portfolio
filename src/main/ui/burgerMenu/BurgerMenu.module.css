@@ -1,0 +1,124 @@
+.burger {
+    display: none;
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    z-index: 1000;
+    /* width: 58px;
+     height: 58px;*/
+    padding: 13px 17px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fff;
+    cursor: none;
+    transition: transform 250ms 0s;
+}
+
+.burger:hover.active {
+    transform: rotate(315deg);
+}
+
+.burger.active {
+    transform: rotate(315deg);
+}
+
+.burger.active >  .burgerLine_1{
+    transform: rotate(90deg) translateX(9px);
+}
+
+.burger.active >  .burgerLine_3{
+    opacity: 0;
+}
+
+.burger:hover {
+    transform: rotate(180deg);
+}
+
+.burgerLine_1 {
+    position: relative;
+    z-index: 5;
+    width: 24px;
+    height: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #111;
+    transition: all 200ms 0s;
+}
+
+.burger:hover .burgerLine_1 {
+    transform: rotate(90deg) translateX(9px);
+}
+
+.burgerLine_2 {
+    position: relative;
+    z-index: 5;
+    width: 24px;
+    height: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #111;
+}
+
+.burgerLine_3 {
+    position: relative;
+    z-index: 5;
+    width: 24px;
+    height: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #111;
+    transition: transform 200ms 0s, opacity 100ms 10ms;
+}
+
+.burger:hover .burgerLine_3 {
+    opacity: 0;
+    transform: rotate(90deg) translateX(-9px);
+}
+
+@media screen and (max-width: 767px) {
+    .burger {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .burger {
+        display: block;
+        padding: 9px 12px;
+        cursor: pointer;
+    }
+    .burger:hover {
+        transform: none;
+    }
+    .burgerLine_1 {
+        width: 20px;
+        height: 2px;
+    }
+    .burger:hover .burgerLine_1 {
+        transform: none;
+    }
+    .burger.active > .burgerLine_1{
+        transform: rotate(90deg) translateX(7px);
+    }
+    .burger.active > .burgerLine_3{
+        transform: rotate(90deg) translateX(-7px);
+        opacity: 0;
+    }
+    .burger:hover.active > .burgerLine_3{
+        opacity: 0;
+    }
+
+    .burgerLine_2 {
+        width: 20px;
+        height: 2px;
+    }
+    .burgerLine_3 {
+        width: 20px;
+        height: 2px;
+    }
+    .burger:hover .burgerLine_3 {
+        opacity: 1;
+        transform: none;
+    }
+}
+
