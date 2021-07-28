@@ -15,6 +15,7 @@
     max-width: 1200px;
     height: inherit;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 0 33px 0;
     @media (max-width: $md4+px) {
@@ -23,21 +24,21 @@
   }
   // .header__logo
   &__logo {
-    height: inherit;
-    object-fit: cover;
-
+    height: 60%;
+    display: flex;
+    align-items: center;
+    @media (max-width: $md3+px) {
+      padding-left: 10px;
+    }
       img {
-        object-position: 0 -5px;
-        height: 120%;
+        max-height: 100%;
       }
   }
 
   &__menu {
-
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
     z-index: 100;
   }
 }
@@ -74,6 +75,7 @@
   &__list {
     li {
       text-transform: uppercase;
+      white-space: nowrap;
       letter-spacing: 1px;
       margin: 0 0 0 33px;
       @media (max-width: $md2+px) {
