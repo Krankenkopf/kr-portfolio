@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './main/App';
+import App from './ui/App';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./main/bll/store";
+import {store} from "./bll/store";
 import {Provider} from "react-redux";
 
 ReactDOM.render(
