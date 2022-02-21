@@ -14,9 +14,10 @@ const BurgerMenu: FC<TBurgerMenuProps> = ({toggleMenu, menuStatus}) => {
     }
     const burgerStyle = `${css.burger} ${status ? css.active : null}`
 
-    return <button className={burgerStyle} onClick={toggleActive}  style={menuStatus
-        ? {right: '28px',}
-        : {}}>
+    return <button className={burgerStyle}
+        onClick={toggleActive}
+        //style={menuStatus ? {right: '28px',} : {}}>
+        >
         <div className={css.burgerLine_1}> </div>
         <div className={css.burgerLine_2}> </div>
         <div className={css.burgerLine_3}> </div>
