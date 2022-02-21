@@ -1,12 +1,22 @@
 $yellow: rgb(255, 200, 0);
 $orange: rgb(255, 106, 0);
 
+.sparksContainer {
+  position: fixed;
+  display: flex;
+  width: calc(100vw + 20px);
+  height: calc(100vh + 200px);
+  left: -10px;
+  bottom: -270px;
+  z-index: 0;
+}
+
 .pitContainerLower {
   position: fixed;
   display: flex;
-  width: 86%;
+  width: 150vw;
   height: 0;
-  bottom: 0;
+  bottom: -10px;
   left: 7%;
   z-index: 0;
   animation: moveLower 60s infinite;
@@ -15,45 +25,77 @@ $orange: rgb(255, 106, 0);
 .pitContainerUpper {
   display: block;
   position: fixed;
-  width: 200%;
-  bottom: 0;
+  width: 50vw;
+  height: 0;
+  bottom: -50px;
   z-index: 4;
   animation: moveUpper 20s infinite;
 }
 @keyframes moveUpper {
   0% {
-    transform: translateX(130vw) translateY(100vh) scale(3.5) rotate(5deg);
+    transform: translateX(30vw) rotate(5deg) scale(2);
   }
 
   25%{
-    transform: translateX(180vw) translateY(100vh) scale(3.5) rotate(5deg);
+    transform: translateX(70vw) rotate(5deg) scale(1.5);
   }
 
   50% {
-    transform: translateX(130vw) translateY(100vh) scale(3.5) rotate(5deg);
+    transform: translateX(30vw) rotate(5deg) scale(1.3);
   }
 
   75% {
-    transform: translateX(90vw) translateY(100vh) scale(3.5) rotate(5deg);
+    transform: translateX(-10vw) rotate(5deg) scale(1.5);
   }
 
   100% {
-    transform: translateX(130vw) translateY(100vh) scale(3.5) rotate(5deg);
+    transform: translateX(30vw) rotate(5deg) scale(2);
   }
 }
 @keyframes moveLower {
   0% {
-    transform: translateX(100px) translateY(50px) scale(1.5) rotate(5deg);
+    transform: translateX(-200px) rotate(5deg);
   }
   5% {
-    transform: translateX(120px) translateY(50px) scale(1.5) rotate(10deg);
+    transform: translateX(0px) rotate(10deg);
   }
   10% {
-    transform: translateX(150px) translateY(50px) scale(1.5) rotate(5deg);
+    transform: translateX(50px) rotate(5deg);
+  }
+  60% {
+    transform: translateX(-10px) rotate(4deg);
+  }
+  70% {
+    transform: translateX(-40px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(-50px) rotate(5deg);
   }
 
   100% {
-    transform: translateX(100px) translateY(50px) scale(1.5) rotate(5deg);
+    transform: translateX(-200px) rotate(5deg);
+  }
+}
+
+@keyframes moveSparksFrame {
+  0% {
+    transform: translateX(-200px);
+  }
+  40% {
+    transform: translateX(50px);
+  }
+  60% {
+    transform: translateX(-10px);
+  }
+  70% {
+    transform: translateX(-40px);
+  }
+  75% {
+    transform: translateX(-50px);
+  }
+
+  100% {
+    transform: translateX(-200px);
   }
 }
 .pit {
@@ -63,16 +105,16 @@ $orange: rgb(255, 106, 0);
   bottom: 0;
   left: 0;
   &:nth-of-type(2) {
-    transform-style: preserve-3d;
-    transform: translateX(-100px) rotate(1deg) skewX(10deg) skewY(-1deg);
+    transform: translateX(-26%) rotate(1deg) skewX(10deg) skewY(-1deg);
   }
   &:nth-of-type(3) {
-    transform-style: preserve-3d;
-    transform: translateX(-100px) rotateY(175deg) rotate(1deg) skewX(10deg) skewY(-1deg);
+    transform: translateX(-48%) rotateY(175deg) rotate(1deg) skewX(10deg) skewY(-1deg);
   }
   &:nth-of-type(4) {
-    transform-style: preserve-3d;
-    transform: translateX(-200px) rotate(5deg) skewX(10deg) skewY(-1deg);
+    transform: translateX(-70%) rotate(5deg) skewX(10deg) skewY(-1deg);
+  }
+  &__wide {
+    width: 90%;
   }
 }
 
@@ -154,9 +196,9 @@ $orange: rgb(255, 106, 0);
   position: absolute;
   bottom: 0;
   left: 15%;
-  width: 1px;
-  height: 2px;
-  box-shadow: 0 0 2px 0 yellow;
+  width: 2px;
+  height: 5px;
+  box-shadow: 0 0 3px 0 #ffff00bb;
   background-color: fade-out($orange,.1);
   animation-name: fly-up-burnout-1;
   animation-duration: 6s;
@@ -284,16 +326,16 @@ $orange: rgb(255, 106, 0);
   }
 
   33%{
-    transform: translate(22px, -140px)  rotate(10deg);
+    transform: translate(22px, -20vh)  rotate(10deg);
   }
 
   66% {
-    transform: translate(38px, -280px) rotate(10deg);
+    transform: translate(38px, -50vh) rotate(10deg);
     opacity: .6;
   }
 
   100% {
-    transform: translate(66px, -400px) rotate(10deg);
+    transform: translate(66px, -100vh) rotate(10deg);
     opacity: 0;
   }
 }
@@ -305,16 +347,16 @@ $orange: rgb(255, 106, 0);
   }
 
   50%{
-    transform: translate(10px, -180px) rotate(10deg);
+    transform: translate(10px, -55vh) rotate(9deg);
   }
 
   80% {
-    transform: translate(40px, -340px) rotate(10deg);
+    transform: translate(40px, -80vh) rotate(10deg);
     opacity: .6;
   }
 
   100% {
-    transform: translate(60px, -460px) rotate(10deg);
+    transform: translate(60px, -95vh) rotate(12deg);
     opacity: 0;
   }
 }
@@ -351,23 +393,23 @@ $orange: rgb(255, 106, 0);
   }
 
   10%{
-    transform: translate(-10px, -100px)  rotate(10deg);
+    transform: translate(-10px, -10vh)  rotate(10deg);
   }
 
   20% {
-    transform: translate(5px, -200px) rotate(10deg);
+    transform: translate(5px, -20vh) rotate(10deg);
     opacity: .8;
   }
   30% {
-    transform: translate(-5px, -300px) rotate(12deg);
+    transform: translate(-5px, -57vh) rotate(12deg);
     opacity: .5;
   }
   40% {
-    transform: translate(20px, -450px) rotate(15deg);
+    transform: translate(20px, -70vh) rotate(15deg);
     opacity: 0;
   }
   50% {
-    transform: translate(40px, -550px) rotate(15deg);
+    transform: translate(40px, -100vh) rotate(15deg);
     opacity: 0;
   }
 
@@ -384,20 +426,20 @@ $orange: rgb(255, 106, 0);
   }
 
   25%{
-    transform: translate(20px, -110px)  rotate(5deg);
+    transform: translate(20px, -15vh)  rotate(5deg);
   }
 
   50% {
-    transform: translate(25px, -270px) rotate(5deg);
+    transform: translate(25px, -38vh) rotate(5deg);
     opacity: .8;
   }
   75% {
-    transform: translate(20px, -370px) rotate(7deg);
+    transform: translate(20px, -59vh) rotate(7deg);
     opacity: .5;
   }
 
   100% {
-    transform: translate(50px, -440px) rotate(11deg);
+    transform: translate(50px, -100vh) rotate(11deg);
     opacity: 0;
   }
 }

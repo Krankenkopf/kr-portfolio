@@ -19,7 +19,7 @@ const ParticlesUpper = React.memo(
         return (
             <>
                 <div className={css.pitContainerUpper}>
-                    <div className={css.pit}>
+                    <div className={css.pit__wide}>
                         {generateParticlesArr(arr1)}
                     </div>
                 </div>
