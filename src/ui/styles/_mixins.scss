@@ -47,7 +47,7 @@
 
 @mixin glow() {
 	@keyframes __glow {
-		0% {
+		/* 0% {
 			text-shadow: 0 0 5px #aaa000;
 		}
 		5% {
@@ -67,7 +67,7 @@
 		}
 		100% {
 			text-shadow: 0 0 5px #aaa000;
-		}
+		} */
 	}
 }
 
