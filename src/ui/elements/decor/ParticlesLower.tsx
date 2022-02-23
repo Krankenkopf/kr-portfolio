@@ -27,11 +27,9 @@ const ParticlesLower = React.memo(
                     </div>
                     <div className={css.pit}>
                         {generateParticlesArr(arr2)}
-                        <Particle rnd={'uniqueFirst'}/>
                     </div>
                     <div className={css.pit}>
                         {generateParticlesArr(arr3)}
-                        <Particle rnd={'uniqueSecond'}/>
                     </div>
                     <div className={css.pit}>
                         {generateParticlesArr(arr4)}
