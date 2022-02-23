@@ -13,12 +13,6 @@ type TMainProps = {
 }
 
 const Main: FC<TMainProps> = ({loaded, isLoaded}) => {
-
-
-
-    console.log("main render")
-
-
     return <main className="page">
         <Hero loaded={loaded} isLoaded={isLoaded}/>
         <About/>

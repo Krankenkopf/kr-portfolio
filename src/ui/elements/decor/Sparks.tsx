@@ -10,6 +10,7 @@ import Spark from "./spark";
 
 interface SparksProps {
   isMobileMode: boolean
+  setCallback: (callback: (deltaTime: number) => void) => void
 }
 
 const smokeImg = new Image();
@@ -53,14 +54,8 @@ export class Sparks extends PureComponent<SparksProps> {
     this.requestId = 0;
   }
 
-  loop = () => {
-    this.requestId = requestAnimationFrame(this.loop);
-    this.now = Date.now()
-    let delta = this.now - this.previous
-    console.log(this.props.isMobileMode);
-    
-    if (delta > INTERVAL) {
-      this.previous = this.now - Math.round(delta % INTERVAL);
+  loop = (deltaTime: number) => {
+    if (deltaTime < INTERVAL) return
       if (this.ctx) {
         // this.ctx.fillStyle = "#202020"; //canvas filling color
         this.ctx.clearRect(0, 0, this.width!, this.height!); //apply filling color
@@ -113,7 +108,6 @@ export class Sparks extends PureComponent<SparksProps> {
         this.sparks.push(spark);
       }
       
-      
       this.smoke.update(this.width!, this.height!, this.windStrength);
       this.smoke.draw(this.windStrength);
 
@@ -150,8 +144,6 @@ export class Sparks extends PureComponent<SparksProps> {
         this.windStrength += 0.2 * direction;
         this.windStrength = Number(this.windStrength.toFixed(2))
       }
-    }
-
   };
 
   getRandom(min: number, max: number, nullable: boolean = true) {
@@ -171,7 +163,7 @@ export class Sparks extends PureComponent<SparksProps> {
     this.width = this.canvas!.width = window.innerWidth+20;
     this.height = this.canvas!.height = window.innerHeight+200;
     //start the animation
-    smokeImg.onload = () => this.loop();
+    smokeImg.onload = () => this.props.setCallback(this.loop);
   }
 
   componentWillUnmount() {

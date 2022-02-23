@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './styles/style.scss';
 import ParticlesLower from "./elements/decor/ParticlesLower";
 import Main from "./Main";
@@ -55,11 +55,11 @@ function App() {
         if (ref.current
             && ref.current.offsetHeight !== height
             && isLoaded) {
-            ref.current && setHeight(ref.current?.offsetHeight)
+            setHeight(ref.current.offsetHeight)
         }
+        setMenuStatus(false)
 
     }, [size, height, isLoaded])
-    console.log('app render')
 
     useEffect(() => {
         // $md1: 1182;
@@ -88,7 +88,10 @@ function App() {
     }, [size.width]);
 
     // scrolling page processing
-    let request: number
+    const requestRef = useRef<number>();
+    const previousTimeRef = useRef<number>();
+    const paintQueueRef = useRef<(arg: number) => void | null>();
+
     const scrollContainerMain = useRef<HTMLDivElement>(null);
     const scrollContainerEpic = useRef<HTMLDivElement>(null);
     const scrollContainerFooter = useRef<HTMLDivElement>(null);
@@ -98,43 +101,92 @@ function App() {
         previous: scrollLastPosition,
         rounded: 0
     }
-    let now = Date.now();
-    let previous = now;
+    const timeData = {
+        now: 0,
+        previous: 0,
+        delta: 0,
+        ticking: false
+    }
+    let latestKnownScrollY = 0;
+    const setCallback = useCallback((callback: (arg: number) => void) => {
+        paintQueueRef.current = callback
+    }, [])
     useEffect(() => {
+        window.addEventListener('scroll', (e) => {
+            e.preventDefault();
+            latestKnownScrollY = window.scrollY;
+            console.log("scroll");
+        })
+        window.addEventListener('touchmove', (e) => {
+            if (timeData.ticking) {
+                e.preventDefault()
+                return
+            }
+            timeData.ticking = true
+        }, { passive: false })
+        window.addEventListener('drag', (e) => {
+            e.preventDefault()
+        }, { passive: false })
         // @ts-ignore
         const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-        request = requestAnimationFrame(() => scrolling(menuStatus))
-        return () => cancelAnimationFrame(request)
-    }, [menuStatus])
-    const scrolling = (menuStatus: boolean) => {
-        request = requestAnimationFrame(() => scrolling(menuStatus))
+        requestRef.current = requestAnimationFrame(render)
+        return () => cancelAnimationFrame(requestRef.current!)
+    }, [])
 
-        now = Date.now()
-        let delta = now - previous;
-        if (delta > INTERVAL) {
-            previous = now - Math.round(delta % INTERVAL);
-            if (menuStatus) {
-                scrollData.current = scrollLastPosition
-                scrollData.previous = scrollLastPosition
-            }
-            else {
-                scrollData.current = window.scrollY
-                scrollData.previous += (scrollData.current - scrollData.previous) * scrollData.ease
-            }
-            scrollData.rounded = Math.round(scrollData.previous * 100) / 100
-                if (scrollContainerMain.current) {
-                    scrollContainerMain.current.style.transform = `translate3d(0, -${scrollData.rounded}px, 0)`
-                }
-                if (scrollContainerEpic.current) {
-                    scrollContainerEpic.current.style.transform = `translate3d(0, -${scrollData.rounded}px, 0)`
-                }
-                if (scrollContainerFooter.current) {
-                    scrollContainerFooter.current.style.transform = `translate3d(0, -${scrollData.rounded}px, 0)`
-                }
+    const render = (now: number) => {
+        if (!previousTimeRef.current) {
+            previousTimeRef.current = now
         }
-
+        timeData.delta = now - previousTimeRef.current!;
+        paintQueueRef.current && paintQueueRef.current(timeData.delta)
+        requestRef.current = requestAnimationFrame(render)
+        scrolling(timeData.delta)
+        if (timeData.delta > INTERVAL) {
+            timeData.ticking = false
+            previousTimeRef.current = now - Math.round(timeData.delta % INTERVAL);
+        }
+        console.log(Math.round(timeData.delta));
     }
 
+    const scrolling = (deltaTime: number) => {
+        if (deltaTime < INTERVAL) return
+        const scrollY = latestKnownScrollY;
+        if (menuStatus) {
+            scrollData.current = scrollLastPosition
+            scrollData.previous = scrollLastPosition
+        }
+        else {
+            scrollData.current = scrollY
+            if (scrollData.current !== Math.round(scrollData.previous)) {
+                scrollData.previous += (scrollData.current - scrollData.previous) * scrollData.ease
+            }
+
+            console.log(scrollData.previous);
+
+        }
+        scrollData.rounded = Math.round(scrollData.previous * 100) / 100
+        if (scrollData.current !== Math.round(scrollData.previous)
+            && scrollContainerMain.current
+            && scrollContainerEpic.current
+            && scrollContainerFooter.current) {
+            scrollContainerMain.current.style.willChange = "transform"
+            scrollContainerMain.current.style.transform = `translate3d(0, -${scrollData.rounded}px, 0)`
+            scrollContainerEpic.current.style.willChange = "transform"
+            scrollContainerEpic.current.style.transform = `translate(0, -${scrollData.rounded}px)`
+            scrollContainerFooter.current.style.willChange = "transform"
+            scrollContainerFooter.current.style.transform = `translate(0, -${scrollData.rounded}px)`
+        } else {
+            if (scrollContainerMain.current) {
+                scrollContainerMain.current.style.willChange = "auto"
+            }
+            if (scrollContainerEpic.current) {
+                scrollContainerEpic.current.style.willChange = "auto"
+            }
+            if (scrollContainerFooter.current) {
+                scrollContainerFooter.current.style.willChange = "auto"
+            }
+        }
+    }
 
     return (
         <div style={menuStatus
@@ -162,9 +214,10 @@ function App() {
                     style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 5 }}>
                     <Footer />
                 </div>
+
                 {!isLoaded && <PreLoader />}
-                <Sparks isMobileMode={ isMobileMode }/>
-                {/*  <ParticlesLower/> */}
+                <Sparks isMobileMode={isMobileMode} setCallback={setCallback} />
+                <ParticlesLower />
                 <ParticlesUpper />
             </div>
         </div>
