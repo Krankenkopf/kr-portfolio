@@ -9,7 +9,7 @@ h2 {
 }
 
 h3 {
-	font-size: calc(14px + 2vw);
+	font-size: calc(16px + 1vw);
 	line-height: calc(20 / 14 * 100%);
 }
 
@@ -28,7 +28,6 @@ h4 {
 	font-weight: normal !important;
 	z-index: 5;
 	margin-bottom: 30px;
-	/* -webkit-text-stroke: 1px #fff;*/
 }
 
 .text {
@@ -49,7 +48,7 @@ h4 {
 		font-size: 18px;
 		line-height: 22 / 18 * 100%;
 	}
-	@media (max-width: $md4+px) {
+	@media (max-width: $md5+px) {
 		font-size: 15px;
 		line-height: 20 / 15 * 100%;
 	}
