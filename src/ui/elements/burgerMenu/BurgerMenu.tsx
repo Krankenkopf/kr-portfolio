@@ -7,12 +7,10 @@ type TBurgerMenuProps = {
 }
 
 const BurgerMenu: FC<TBurgerMenuProps> = ({toggleMenu, menuStatus}) => {
-    const [status, setStatus] = useState(false)
     const toggleActive = () => {
-        setStatus(!status)
-        toggleMenu(!status)
+        toggleMenu(!menuStatus)
     }
-    const burgerStyle = `${css.burger} ${status ? css.active : null}`
+    const burgerStyle = `${css.burger} ${menuStatus ? css.active : null}`
 
     return <button className={burgerStyle}
         onClick={toggleActive}
