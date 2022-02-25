@@ -207,6 +207,7 @@ function App() {
         }
     }
 
+    const containerTransition = isMobileMode ? "none" : 'all 500ms cubic-bezier(0.3, 1, 1, 1)';
     return (
         <div style={menuStatus
             ? { height: `${height}px`, position: 'fixed', overflowY: 'hidden' }
@@ -224,17 +225,17 @@ function App() {
                         onNavClick={onNavClick} />
                 </div>
                 <div ref={scrollContainerMain}
-                    style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 2 }}>
+                    style={{ transition: containerTransition, zIndex: 2 }}>
                     <Main loaded={loaded}
                         isLoaded={isLoaded}
                         onScrollToSectionClick={onNavClick} />
                 </div>
                 <div ref={scrollContainerEpic}
-                    style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 0 }}>
+                    style={{ transition: containerTransition, zIndex: 0 }}>
                     <EpicBlock loaded={loaded} />
                 </div>
                 <div ref={scrollContainerFooter}
-                    style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 5 }}>
+                    style={{ transition: containerTransition, zIndex: 5 }}>
                     <Footer />
                 </div>
 

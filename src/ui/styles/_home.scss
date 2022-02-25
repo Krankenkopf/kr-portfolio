@@ -13,10 +13,10 @@
 		perspective: 500px;
 	}
 	@media (max-width: ($md5+px)) {
-		perspective: 400px;
+		perspective: 450px;
 	}
 	@media (max-width: ($md6+px)) {
-		perspective: 350px;
+		perspective: 400px;
 	}
 	// .page__hero
 	&__hero {
@@ -57,14 +57,15 @@
 	}
 	@media (max-width: ($md5+px)) {
 		justify-content: flex-start;
-		padding: 30px 20px 40px 20px;
-		margin-top: 66px;
+		padding: 30px 20px 0 20px;
+		//margin-top: 66px;
 	}
 	// .hero__container
 	&__container {
 		width: 100%;
 		display: flex;
 		align-items: center;
+		flex: 1 1 auto;
 		@media (max-width: (($md3+px))) {
 			justify-content: center;
 			flex-direction: column;
@@ -76,17 +77,13 @@
 
 	// .hero__desc
 	&__desc {
-		flex: 1 1 auto;
 		padding: 0 50px 0 0;
-
 		*:last-child {
 			margin-bottom: 0;
 		}
-
 		@media (max-width: ($md2+px)) {
 			padding: 0 30px 0 0;
 		}
-
 		@media (max-width: (($md3+px))) {
 			padding: 0;
 		}
