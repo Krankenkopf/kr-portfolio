@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties, FC, SyntheticEvent} from 'react';
 import fire from "assets/fire.mp4";
 import {useInView} from "react-intersection-observer";
 import frame1 from "assets/epic/pre_frame1.png"
@@ -12,6 +12,7 @@ import frame8 from "assets/epic/pre_frame8.png"
 import frame9 from "assets/epic/pre_frame9.png"
 import frame10 from "assets/epic/pre_frame10.png"
 import frame11 from "assets/epic/pre_frame11.png"
+import { useCallback } from 'react';
 
 type TEpicBlockProps = {
     loaded: () => void
@@ -79,8 +80,13 @@ const EpicBlock: FC<TEpicBlockProps> = ({loaded}) => {
         },
     ].map(fr => (
         <span key={fr.id} className="epic__hero__frame">
-            <img src={fr.imgSrc} alt={fr.imgAlt}/>
+            <img src={fr.imgSrc} alt={fr.imgAlt} onLoad={loaded}/>
         </span>))
+    
+    const onVideoLoad = useCallback((e: SyntheticEvent<HTMLVideoElement>) => {
+        loaded();
+        e.currentTarget.play();
+    }, [])
     return (
         <div ref={ref} className="epic__block">
             <div className="epic">
@@ -90,7 +96,7 @@ const EpicBlock: FC<TEpicBlockProps> = ({loaded}) => {
                         {frames}
                     </div>
                 </div>
-                <video className="epic__fire" autoPlay muted loop playsInline onLoadedData={loaded}>
+                <video className="epic__fire" muted loop playsInline onLoadedData={onVideoLoad}>
                     <source src={fire} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'/>
                 </video>
                 <div className="epic__gradient"> </div>
