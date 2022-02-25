@@ -60,8 +60,8 @@ export class Sparks extends PureComponent<SparksProps> {
         // this.ctx.fillStyle = "#202020"; //canvas filling color
         this.ctx.clearRect(0, 0, this.width!, this.height!); //apply filling color
 
-        this.ctx.font = "48px sans-serif";
-        this.ctx.fillText(this.windStrength.toString(), 10, 500);
+        /* this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.windStrength.toString(), 10, 500); */
       }
 
       if (!this.smoke) {

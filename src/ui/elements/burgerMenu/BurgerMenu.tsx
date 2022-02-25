@@ -1,12 +1,12 @@
-import React, {FC, useState} from "react";
+import React, { FC } from "react";
 import css from "./BurgerMenu.module.css";
 
 type TBurgerMenuProps = {
-    toggleMenu: (status: boolean) => void
     menuStatus: boolean
+    toggleMenu: (status: boolean) => void   
 }
 
-const BurgerMenu: FC<TBurgerMenuProps> = ({toggleMenu, menuStatus}) => {
+const BurgerMenu: FC<TBurgerMenuProps> = ({menuStatus, toggleMenu}) => {
     const toggleActive = () => {
         toggleMenu(!menuStatus)
     }

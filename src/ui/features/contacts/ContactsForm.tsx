@@ -161,7 +161,7 @@ const CTextField = withStyles({
             },
             '&.Mui-error fieldset': {
                 borderColor: '#ff0000',
-                animation: 'blinking 1s infinite'
+                animation: 'blinking 1s 5'
             }
         },
     },

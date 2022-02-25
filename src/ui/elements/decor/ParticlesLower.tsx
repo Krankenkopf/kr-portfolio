@@ -7,7 +7,6 @@ const ParticlesLower = React.memo(
         let arr2: Array<{ height: number, rnd: string }> = []
         let arr3: Array<{ height: number, rnd: string }> = []
         let arr4: Array<{ height: number, rnd: string }> = []
-        console.log('particles')
         const generateParticlesArr = (arr: Array<{ height: number, rnd: string }>) => {
             for (let i = 0; i < 50; i++) {
                 arr.push({

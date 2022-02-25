@@ -4,7 +4,6 @@ import css from "./Particles.module.scss"
 const ParticlesUpper = React.memo(
     () => {
         let arr1: Array<{ height: number, rnd: string }> = []
-        console.log('particles')
         const generateParticlesArr = (arr: Array<{ height: number, rnd: string }>) => {
             for (let i = 0; i < 50; i++) {
                 arr.push({

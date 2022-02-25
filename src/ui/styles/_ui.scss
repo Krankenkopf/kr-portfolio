@@ -44,11 +44,11 @@ h4 {
 		padding: 0;
 	}
 
-	@media (max-width: $md3+px) {
+	@media (max-width: ($md3+px)) {
 		font-size: 18px;
 		line-height: 22 / 18 * 100%;
 	}
-	@media (max-width: $md5+px) {
+	@media (max-width: ($md5+px)) {
 		font-size: 15px;
 		line-height: 20 / 15 * 100%;
 	}
@@ -72,6 +72,9 @@ h4 {
 		z-index: 5;
 		opacity: 0;
 		animation: pl__fade 1s forwards 1 ;
+		@media (max-width: ($md4+px)) {
+			width: 30vw;
+		}
 		img {
 			animation: appLogoSpin  infinite 1.5s 1.5s running;
 		}
