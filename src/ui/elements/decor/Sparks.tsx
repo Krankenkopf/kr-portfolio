@@ -109,7 +109,7 @@ export class Sparks extends PureComponent<SparksProps> {
       }
       
       this.smoke.update(this.width!, this.height!, this.windStrength);
-      this.smoke.draw(this.windStrength);
+      this.smoke.draw(this.windStrength, this.props.isMobileMode);
 
       for (let i = 0; i < this.sparks.length; i++) {
         this.sparks[i].update(this.width!, this.height!, this.windStrength);

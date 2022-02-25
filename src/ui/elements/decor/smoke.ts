@@ -28,30 +28,29 @@ export class Smoke implements ISmoke {
     this.sHeightSecond = this.img.height - 500;
     this.counter = 0;
   }
-  draw(windStrength: number) {
+  draw(windStrength: number, isMobileMode: boolean) {
     this.ctx.globalAlpha = 0.1;
-    this.ctx.drawImage(this.img,
-      // source
-      400,
-      this.sYFirst * 2,
-      this.img.width - 800,
-      this.sHeightFirst,
-      // destination
-      0,
-      0,
-      this.width,
-      this.height)
-    this.ctx.drawImage(this.img,
-      // source
-      400,
-      this.sYSecond * 2,
-      this.img.width - 800,
-      this.sHeightSecond,
-      // destination
-      0,
-      0,
-      this.width,
-      this.height)
+    if (!isMobileMode) {
+      this.ctx.drawImage(this.img,
+        400,
+        this.sYFirst * 2,
+        this.img.width - 800,
+        this.sHeightFirst,
+        0,
+        0,
+        this.width,
+        this.height)
+      this.ctx.drawImage(this.img,
+        400,
+        this.sYSecond * 2,
+        this.img.width - 800,
+        this.sHeightSecond,
+        0,
+        0,
+        this.width,
+        this.height)
+    }
+
     this.ctx.drawImage(this.img,
       // source
       200,
