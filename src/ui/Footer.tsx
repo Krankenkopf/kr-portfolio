@@ -32,11 +32,19 @@ const Footer: FC<TFooterProps> = () => {
                         <p className="footer__text text">
                             ©2021 Krankenkopf ‒ All right!
                         </p>
-                        <div>
-                            <TelegramIcon className="footer__icon icon" color={'secondary'}/>
-                            <GitHubIcon className="footer__icon icon" color={'secondary'} />
-                            <LinkedInIcon className="footer__icon icon" color={'secondary'} />
-                            <InstagramIcon className="footer__icon icon" color={'secondary'} />
+                        <div className="footer__icons">
+                            <a href="https://t.me/romanthekrank" rel="noopener noreferrer" target="_blank">
+                                <TelegramIcon className="footer__icon icon" color={'secondary'}/>
+                            </a>
+                            <a href="https://github.com/krankenkopf" rel="noopener noreferrer" target="_blank">
+                                <GitHubIcon className="footer__icon icon" color={'secondary'} />
+                            </a>
+                            <a href="https://linkedin.com/in/roman-the-krank" rel="noopener noreferrer" target="_blank">
+                                <LinkedInIcon className="footer__icon icon" color={'secondary'} />
+                            </a>
+                            <a href="https://instagram.com/hermannthekrank" rel="noopener noreferrer" target="_blank">
+                                <InstagramIcon className="footer__icon icon" color={'secondary'} />
+                            </a>
                         </div>
                     </div>
                     <div className="footer__logo">

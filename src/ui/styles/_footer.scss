@@ -47,12 +47,18 @@
 		}
 
 	}
+	// .footer__icons
+	&__icons {
+		& > a {
+			margin-right: 10px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
 	// .footer__icon
 	&__icon {
-		margin-right: 10px;
-		&:last-child {
-			margin-right: 0;
-		}
+		
 		@media (min-width: ($md3+px)) {
 			width: 44px !important;
 			height: 44px !important;
