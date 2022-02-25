@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import {useInView} from "react-intersection-observer";
 
+type TAboutProps = {
+    onScrollToSectionClick: (e: MouseEvent<HTMLButtonElement>) => void
+}
 
-const About = () => {
+const About: FC<TAboutProps> = ({onScrollToSectionClick}) => {
     const {ref, inView} = useInView({
         threshold: 0.2
     })
@@ -12,8 +15,8 @@ const About = () => {
             : <h2 key={i + char} style={{opacity: '0'}}>{char}</h2>
     ))
     return (
-        <section ref={ref} className="page__about">
-            <div className="about" id='about'>
+        <section id="about" ref={ref} className="page__about">
+            <div className="about">
                 <div className="about__container _container">
                     <div className="about__title title">
                         <div className={"stringThree"}
@@ -26,7 +29,7 @@ const About = () => {
                         </div>
                     </div>
                     <div className="about__text text">
-                        <p>My name is Raman Khamets. I'm from Belarus. I'm a quality obsessed, detail-oriented frontend
+                        <p>My name is Roman Khomets. I'm from Belarus. I'm a quality obsessed, detail-oriented frontend
                             developer who have a strong interest in UI effects, animations and creating stunning dynamic
                             user experiences. I live to learn. I love broadening my skills and working towards a
                             goal.</p>
@@ -36,7 +39,10 @@ const About = () => {
                             and open-minded people.</p>
                     </div>
                     <div>
-                        <button className="about__btn btn">
+                        <button type="button"
+                            value="contacts"
+                            className="about__btn btn"
+                            onClick={onScrollToSectionClick}>
                             Contact Me!
                         </button>
                     </div>

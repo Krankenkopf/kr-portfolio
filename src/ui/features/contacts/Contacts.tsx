@@ -14,7 +14,7 @@ const Contacts: FC<{}> = () => {
             : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
     return (
-        <section ref={ref} className="page__contacts">
+        <section ref={ref} id="contacts" className="page__contacts">
             <div className="contacts">
                 <div className="contacts__container _container">
                     <div className="contacts__title title">

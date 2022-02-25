@@ -1,9 +1,11 @@
-import React, {CSSProperties, FC, useState} from "react";
+import React, {CSSProperties, FC, useState, MouseEvent} from "react";
 import temp from "assets/projects/temp.png"
-import project1 from "assets/projects/samurai.png"
-import project2 from "assets/projects/oregally.png"
+import project1 from "assets/projects/hm.png"
+import project2 from "assets/projects/samurai.png"
 import project3 from "assets/projects/dadlinir.png"
+import project4 from "assets/projects/oregally.png"
 import {useInView} from "react-intersection-observer";
+import { useCallback } from "react";
 
 type TProjectCards = {
     loaded: () => void
@@ -13,24 +15,43 @@ const ProjectCards: FC<TProjectCards> = ({loaded}) => {
     const projectsData = [
         {
             id: 1,
-            projectName: ['SamuraiJS-SN'],
+            projectName: ['H&M Clone'],
             projectImg: project1,
-            projectDesc: 'Social Network',
+            projectDesc: 'Online Store',
+            isReady: true,
+            href: 'https://krank-shop.netlify.app/',
         },
         {
             id: 2,
-            projectName: [`O'regally`, `Krankgrounds`],
+            projectName: ['SamuraiJS-SN'],
             projectImg: project2,
-            projectDesc: 'Online Store',
+            projectDesc: 'Social Network',
+            isReady: false,
+            href: '/',
         },
         {
             id: 3,
             projectName: ['Dadlinir'],
             projectImg: project3,
             projectDesc: 'Todolist App',
+            isReady: false,
+            href: '/',
+        },
+        {
+            id: 4,
+            projectName: [`O'regally Krankgrounds`],
+            projectImg: project4,
+            projectDesc: 'Online Store',
+            isReady: false,
+            href: '/',
         },
     ]
     const [loading, addStep] = useState<Array<boolean>>(() => projectsData.map(() => false))
+    const onProjectLinkClick = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+        if (e.currentTarget.dataset.value === "false") {
+            e.preventDefault()
+        }
+    }, [])
     const onImgLoad = () => {
         const current = [...loading]
         current.splice(0, 1)
@@ -44,7 +65,7 @@ const ProjectCards: FC<TProjectCards> = ({loaded}) => {
     const projectsCards = projectsData.map(p => (
         <div key={p.id} className="projects__card">
                 <div className="projects__card__img">
-                    <a href=''>
+                    <a href={p.href} data-value={p.isReady} onClick={onProjectLinkClick}>
                         <img src={p.projectImg} alt={p.projectName[0].toLowerCase()} onLoad={onImgLoad} />
                         <div className="projects__card__anchor">View project</div>
                     </a>
@@ -71,7 +92,7 @@ const ProjectCards: FC<TProjectCards> = ({loaded}) => {
             ? <h2 key={i+char} className={`__R${i+1}`} style={inView ? {} : {animationName: 'none'}}>{char}</h2>
             : <h2 key={i+char} style={{opacity: '0'}}>{char}</h2>
     ))
-    return <section ref={ref} className="page__projects">
+    return <section ref={ref} id="projects" className="page__projects">
         <div className="projects">
             <div className="projects__container _container">
                 <div className="projects__title title">

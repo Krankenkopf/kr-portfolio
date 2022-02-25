@@ -9,7 +9,7 @@ const HeroDescription: FC<{isLoaded: boolean}> = ({isLoaded}) => {
                 ? <h3 key={i+char} className={`__exc1`} style={isLoaded ? {animationDelay: '1s'} : {animationName: 'none'}}>{char}</h3>
                 : <h3 key={i+char} style={{opacity: '0'}}>{char}</h3>
     ))
-    const stringTwo = `I'M_RAMAN`.split('').map((char, i) => (
+    const stringTwo = `I'M_ROMAN`.split('').map((char, i) => (
         char !== '_' && char !== `'`
             ? <h1 key={i+char} className={`__L${i+1}`} style={isLoaded ? {animationDelay: '2s'} : {animationName: 'none'}}>{char}</h1>
             : char === `'`

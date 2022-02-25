@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
 import './styles/style.scss';
 import ParticlesLower from "./elements/decor/ParticlesLower";
 import Main from "./Main";
@@ -33,23 +33,28 @@ function App() {
     const loaded = () => {
         incLoadingStages(loadingStages + 1)
     }
-    if (loadingStages === 4 && !isLoaded) {
+    if (loadingStages === 14 && !isLoaded) {
         setIsLoaded(true)
     }
-
+    const [scrollLastPosition, setScrollLastPosition] = useState(0)
     const [menuStatus, setMenuStatus] = useState(false)
     const toggleMenu = (status: boolean) => {
-        setMenuStatus(status)
-        if (status) {
-            setScrollLastPosition(window.scrollY)
+        setMenuStatus(status) 
+        if (status) {  
+            latestKnownScrollY.current && setScrollLastPosition(latestKnownScrollY.current)
+            scrollLockRef.current = true
         }
     }
+    const scrollToTargetSection = useCallback((y: number) => {
+        window.scrollTo({top: y})
+    }, [])
     useEffect(() => {
         if (!menuStatus) {
+            scrollLockRef.current = false
             window.scrollTo({ top: scrollLastPosition })
         }
     }, [menuStatus])
-    const [scrollLastPosition, setScrollLastPosition] = useState(0)
+    
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         if (ref.current
@@ -91,7 +96,10 @@ function App() {
     const requestRef = useRef<number>();
     const previousTimeRef = useRef<number>();
     const paintQueueRef = useRef<(arg: number) => void | null>();
+    const latestKnownScrollY = useRef<number>();
+    const scrollLockRef = useRef<boolean>();
 
+    const headerRef = useRef<HTMLDivElement>(null);
     const scrollContainerMain = useRef<HTMLDivElement>(null);
     const scrollContainerEpic = useRef<HTMLDivElement>(null);
     const scrollContainerFooter = useRef<HTMLDivElement>(null);
@@ -107,32 +115,45 @@ function App() {
         delta: 0,
         ticking: false
     }
-    let latestKnownScrollY = 0;
     const setCallback = useCallback((callback: (arg: number) => void) => {
         paintQueueRef.current = callback
     }, [])
     useEffect(() => {
-        window.addEventListener('scroll', (e) => {
+        const onScroll = (e: Event) => {
             e.preventDefault();
-            latestKnownScrollY = window.scrollY;
-            console.log("scroll");
-        })
-        window.addEventListener('touchmove', (e) => {
+            latestKnownScrollY.current = window.scrollY;
+        }
+        const onTouchMove = (e: Event) => {
             if (timeData.ticking) {
                 e.preventDefault()
                 return
             }
             timeData.ticking = true
-        }, { passive: false })
-        window.addEventListener('drag', (e) => {
-            e.preventDefault()
-        }, { passive: false })
+        }
+        latestKnownScrollY.current = 0;
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
         // @ts-ignore
         const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
         requestRef.current = requestAnimationFrame(render)
-        return () => cancelAnimationFrame(requestRef.current!)
+        return () => {
+            cancelAnimationFrame(requestRef.current!);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("touchmove", onTouchMove);
+        }
     }, [])
 
+    const onNavClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        const section = document.getElementById(e.currentTarget.value)
+        if (section && headerRef.current) {  
+            if (menuStatus) {
+                setMenuStatus(false)
+                setScrollLastPosition(section.offsetTop - headerRef.current.offsetHeight)
+            } else {
+                scrollToTargetSection(section.offsetTop - headerRef.current.offsetHeight)
+            }   
+        }
+    }, [menuStatus])
     const render = (now: number) => {
         if (!previousTimeRef.current) {
             previousTimeRef.current = now
@@ -145,24 +166,22 @@ function App() {
             timeData.ticking = false
             previousTimeRef.current = now - Math.round(timeData.delta % INTERVAL);
         }
-        console.log(Math.round(timeData.delta));
     }
 
     const scrolling = (deltaTime: number) => {
         if (deltaTime < INTERVAL) return
-        const scrollY = latestKnownScrollY;
-        if (menuStatus) {
-            scrollData.current = scrollLastPosition
-            scrollData.previous = scrollLastPosition
+        const scrollY = latestKnownScrollY.current;
+
+        if (scrollLockRef.current) {
+            return
+            //scrollData.current = scrollLastPosition
+            //scrollData.previous = scrollLastPosition
         }
-        else {
-            scrollData.current = scrollY
+        else {         
+            scrollData.current = scrollY!
             if (scrollData.current !== Math.round(scrollData.previous)) {
                 scrollData.previous += (scrollData.current - scrollData.previous) * scrollData.ease
             }
-
-            console.log(scrollData.previous);
-
         }
         scrollData.rounded = Math.round(scrollData.previous * 100) / 100
         if (scrollData.current !== Math.round(scrollData.previous)
@@ -197,14 +216,18 @@ function App() {
             <div ref={ref} className="wrapper" style={menuStatus && !isMobileMode
                 ? { paddingRight: '17px', }
                 : {}}>
-                <Header loaded={loaded}
-                    isLoaded={isLoaded}
-                    toggleMenu={toggleMenu}
-                    menuStatus={menuStatus} />
+                <div ref={headerRef} className="header__container">
+                    <Header loaded={loaded}
+                        isLoaded={isLoaded}
+                        toggleMenu={toggleMenu}
+                        menuStatus={menuStatus}
+                        onNavClick={onNavClick} />
+                </div>
                 <div ref={scrollContainerMain}
                     style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 2 }}>
                     <Main loaded={loaded}
-                        isLoaded={isLoaded} />
+                        isLoaded={isLoaded}
+                        onScrollToSectionClick={onNavClick} />
                 </div>
                 <div ref={scrollContainerEpic}
                     style={{ transition: 'all 500ms cubic-bezier(0.3, 1, 1, 1)', zIndex: 0 }}>

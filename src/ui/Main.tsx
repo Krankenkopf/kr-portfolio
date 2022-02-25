@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC, MouseEvent} from "react";
 import "./styles/style.scss"
 import SkillCards from "./features/skillsCards/SkillCards";
 import ProjectCards from "./features/projectsCards/ProjectCards";
@@ -10,13 +10,16 @@ import About from "./features/about/About";
 type TMainProps = {
     loaded: () => void
     isLoaded: boolean
+    onScrollToSectionClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-const Main: FC<TMainProps> = ({loaded, isLoaded}) => {
+const Main: FC<TMainProps> = ({loaded, isLoaded, onScrollToSectionClick }) => {
     return <main className="page">
-        <Hero loaded={loaded} isLoaded={isLoaded}/>
-        <About/>
-        <SkillCards/>
+        <Hero setLoaded={loaded}
+            isLoaded={isLoaded}
+            onScrollToSectionClick={onScrollToSectionClick} />
+        <About onScrollToSectionClick={onScrollToSectionClick}/>
+        <SkillCards />
         <ProjectCards loaded={loaded}/>
         <Contacts/>
     </main>

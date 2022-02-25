@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC } from "react";
+import React, { FC } from "react";
 import { skillImgs } from "assets/skills"
 import { splashImgs } from "assets/skills/splashes"
 import { blankcover } from "../../Main"
@@ -138,7 +138,10 @@ const skillsData: Array<TSkill> = [
     },
 ]
 
-const SkillCards: FC<{}> = () => {
+type TSkillCardsProps = {
+}
+
+const SkillCards: FC<TSkillCardsProps> = () => {
 
     const { ref, inView } = useInView({
         threshold: 0.1
