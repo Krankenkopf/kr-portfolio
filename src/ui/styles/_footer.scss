@@ -45,6 +45,12 @@
 		@media (max-width: ($md3+px)) {
 			font-size: 15px !important;
 		}
+		@media (max-width: ($md4+px)) {
+			font-size: 14px !important;
+		}
+		@media (max-width: ($md5+px)) {
+			font-size: 13px !important;
+		}
 
 	}
 	// .footer__icons
@@ -58,10 +64,15 @@
 	}
 	// .footer__icon
 	&__icon {
-		
-		@media (min-width: ($md3+px)) {
-			width: 44px !important;
-			height: 44px !important;
+		width: 44px !important;
+		height: 44px !important;
+		@media (max-width: ($md3+px)) {
+			width: 34px !important;
+			height: 34px !important;
+		}
+		@media (max-width: ($md5+px)) {
+			width: 28px !important;
+			height: 28px !important;
 		}
 	}
 	// .footer__logo
