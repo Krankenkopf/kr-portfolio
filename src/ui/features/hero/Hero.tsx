@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, MouseEvent} from 'react';
+import React, { FC, useEffect, useRef, MouseEvent, useState} from 'react';
 import HeroDescription from "./heroDescription/HeroDescription";
 import photo1 from "assets/img_1.jpg";
 import cv from "assets/cv.pdf"
@@ -6,44 +6,56 @@ import {useInView} from "react-intersection-observer";
 import { useCallback } from 'react';
 
 type THeroProps = {
+    menuStatus: boolean
     isLoaded: boolean
     setLoaded: () => void
+    setCallback: (callback: (deltaTime: number) => void) => void
     onScrollToSectionClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-const Hero: FC<THeroProps> = ({setLoaded, isLoaded, onScrollToSectionClick}) => {
+const Hero: FC<THeroProps> = ({menuStatus, setLoaded, isLoaded, setCallback, onScrollToSectionClick}) => {
     const {ref, inView} = useInView()
     const rotateContainer = useRef<HTMLDivElement>(null);
-    let request: number
-    const rotateData = {
-        ease: 0.2,
-        current: 0,
-        previous: 0,
-        rounded: 0
-    }
+    const [scrollLastPosition, setScrollLastPosition] = useState(0)
+
+    const rotateDataRef = useRef<any>()
+    
     const rotating = () => {
-        rotateData.current = window.scrollY
-        rotateData.previous += (rotateData.current - rotateData.previous) * rotateData.ease
-        rotateData.rounded = Math.round(rotateData.previous * 100) / 100
+        rotateDataRef.current.current = window.scrollY
+        rotateDataRef.current.previous += (rotateDataRef.current.current - rotateDataRef.current.previous)
+        rotateDataRef.current.rounded = Math.round(rotateDataRef.current.previous * 100) / 100
 
         if (rotateContainer.current) {
-            rotateContainer.current.style.transform = `rotateX(${rotateData.rounded / 50}deg) translate3d(0, ${-rotateData.rounded / 20}px, ${-rotateData.rounded/30}px)`
+            rotateContainer.current.style.transform = `rotateX(${rotateDataRef.current.rounded / 50}deg) translate3d(0, ${-rotateDataRef.current.rounded / 20}px, ${-rotateDataRef.current.rounded/30}px)`
         }
-        if (inView) {
-            request = requestAnimationFrame(rotating);
-        }
+        /* if (inView) {
+            requestRef.current = requestAnimationFrame(rotating);
+        } */
 
     }
     useEffect(() => {
         // @ts-ignore
-        const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-        request = requestAnimationFrame(rotating)
-        return () => cancelAnimationFrame(request)
+        /* const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+        if (menuStatus) {
+            rotateDataRef.current.rotateLock = true
+            //requestRef.current && cancelAnimationFrame(requestRef.current)
+        } else {
+            
+        }
+        requestRef.current = requestAnimationFrame(rotating) */
+        rotateDataRef.current = {
+                current: 0,
+                previous: 0,
+                rounded: 0,
+                rotateLock: false
+            }  
+        if (inView) {
+            setCallback(rotating)
+        } else {
+            setCallback(() => { })
+        }
+        return () => setCallback(() => {})
     }, [inView])
-
-    const openCV = useCallback(() => {
-        window.open("/")
-    }, [])
 
     return (
         <section id="hero" ref={ref} className="page__hero">
@@ -69,9 +81,6 @@ const Hero: FC<THeroProps> = ({setLoaded, isLoaded, onScrollToSectionClick}) => 
                     </a> 
                 </div>
             </div>
-            {/* <div className="cv">
-                <embed src="file_name.pdf" width="800px" height="2100px" />
-            </div> */}
         </section>
     )
 }

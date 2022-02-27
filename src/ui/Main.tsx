@@ -8,15 +8,19 @@ import About from "./features/about/About";
 
 
 type TMainProps = {
-    loaded: () => void
+    menuStatus: boolean
     isLoaded: boolean
+    loaded: () => void
+    setCallback: (callback: (deltaTime: number) => void) => void
     onScrollToSectionClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-const Main: FC<TMainProps> = ({loaded, isLoaded, onScrollToSectionClick }) => {
+const Main: FC<TMainProps> = ({menuStatus, isLoaded, loaded, setCallback, onScrollToSectionClick }) => {
     return <main className="page">
-        <Hero setLoaded={loaded}
+        <Hero menuStatus={menuStatus}
+            setLoaded={loaded}
             isLoaded={isLoaded}
+            setCallback={setCallback}
             onScrollToSectionClick={onScrollToSectionClick} />
         <About onScrollToSectionClick={onScrollToSectionClick}/>
         <SkillCards />

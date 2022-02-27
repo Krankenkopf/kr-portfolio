@@ -95,7 +95,8 @@ function App() {
     // scrolling page processing
     const requestRef = useRef<number>();
     const previousTimeRef = useRef<number>();
-    const paintQueueRef = useRef<(arg: number) => void | null>();
+    const paintBgQueueRef = useRef<(arg: number) => void | null>();
+    const rotateQueueRef = useRef<(arg: number) => void | null>();
     const latestKnownScrollY = useRef<number>();
     const scrollLockRef = useRef<boolean>();
 
@@ -115,8 +116,11 @@ function App() {
         delta: 0,
         ticking: false
     }
-    const setCallback = useCallback((callback: (arg: number) => void) => {
-        paintQueueRef.current = callback
+    const setPaintBgCallback = useCallback((callback: (arg: number) => void) => {
+        paintBgQueueRef.current = callback
+    }, [])
+    const setRotateCallback = useCallback((callback: (arg: number) => void) => {
+        rotateQueueRef.current = callback
     }, [])
     useEffect(() => {
         const onScroll = (e: Event) => {
@@ -159,7 +163,10 @@ function App() {
             previousTimeRef.current = now
         }
         timeData.delta = now - previousTimeRef.current!;
-        paintQueueRef.current && paintQueueRef.current(timeData.delta)
+        paintBgQueueRef.current && paintBgQueueRef.current(timeData.delta)
+        if (!scrollLockRef.current) {
+            rotateQueueRef.current && rotateQueueRef.current(timeData.delta)
+        }  
         requestRef.current = requestAnimationFrame(render)
         scrolling(timeData.delta)
         if (timeData.delta > INTERVAL) {
@@ -174,8 +181,6 @@ function App() {
 
         if (scrollLockRef.current) {
             return
-            //scrollData.current = scrollLastPosition
-            //scrollData.previous = scrollLastPosition
         }
         else {         
             scrollData.current = scrollY!
@@ -207,7 +212,7 @@ function App() {
         }
     }
 
-    const containerTransition = isMobileMode ? "none" : 'all 500ms cubic-bezier(0.3, 1, 1, 1)';
+    const containerTransition = isMobileMode ? 'all 100ms cubic-bezier(0.3, 1, 1, 1)' : 'all 500ms cubic-bezier(0.3, 1, 1, 1)';
     return (
         <div style={menuStatus
             ? { height: `${height}px`, position: 'fixed', overflowY: 'hidden' }
@@ -228,6 +233,8 @@ function App() {
                     style={{ transition: containerTransition, zIndex: 2 }}>
                     <Main loaded={loaded}
                         isLoaded={isLoaded}
+                        menuStatus={menuStatus}
+                        setCallback={setRotateCallback}
                         onScrollToSectionClick={onNavClick} />
                 </div>
                 <div ref={scrollContainerEpic}
@@ -240,7 +247,7 @@ function App() {
                 </div>
 
                 {!isLoaded && <PreLoader />}
-                <Sparks isMobileMode={isMobileMode} setCallback={setCallback} />
+                <Sparks isMobileMode={isMobileMode} setCallback={setPaintBgCallback} />
                 <ParticlesLower />
                 <ParticlesUpper />
             </div>

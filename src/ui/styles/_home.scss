@@ -51,7 +51,6 @@
 	align-items: center;
 	padding: 120px 33px 40px 33px;
 	z-index: 10;
-	transition: all 500ms 0s cubic-bezier(0.3, 1, 1, 1);
 	@media (max-width: ($md2+px)) {
 		padding: 120px 25px 40px 25px;
 	}
