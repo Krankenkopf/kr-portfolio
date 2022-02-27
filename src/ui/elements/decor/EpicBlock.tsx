@@ -84,12 +84,8 @@ const EpicBlock: FC<TEpicBlockProps> = ({loaded}) => {
         </span>))
     
     const onVideoLoad = useCallback((e: SyntheticEvent<HTMLVideoElement>) => {
-        let el = document.getElementById("epic-fire") as HTMLVideoElement | null
-        if (el) {
-            el.play()
-        }
         loaded();
-        e.currentTarget.play();
+        //e.currentTarget.play();
     }, [])
     return (
         <div ref={ref} className="epic__block">
@@ -100,7 +96,7 @@ const EpicBlock: FC<TEpicBlockProps> = ({loaded}) => {
                         {frames}
                     </div>
                 </div>
-                <video id="epic-fire" className="epic__fire" muted loop playsInline onLoadedData={onVideoLoad}>
+                <video id="epic-fire" className="epic__fire" muted loop autoPlay playsInline onLoadedData={onVideoLoad}>
                     <source src={fire} type='video/mp4'/>
                 </video>
                 <div className="epic__gradient"> </div>

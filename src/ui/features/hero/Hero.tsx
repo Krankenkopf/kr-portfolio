@@ -16,33 +16,18 @@ type THeroProps = {
 const Hero: FC<THeroProps> = ({menuStatus, setLoaded, isLoaded, setCallback, onScrollToSectionClick}) => {
     const {ref, inView} = useInView()
     const rotateContainer = useRef<HTMLDivElement>(null);
-    const [scrollLastPosition, setScrollLastPosition] = useState(0)
-
     const rotateDataRef = useRef<any>()
     
-    const rotating = () => {
-        rotateDataRef.current.current = window.scrollY
-        rotateDataRef.current.previous += (rotateDataRef.current.current - rotateDataRef.current.previous)
-        rotateDataRef.current.rounded = Math.round(rotateDataRef.current.previous * 100) / 100
-
-        if (rotateContainer.current) {
-            rotateContainer.current.style.transform = `rotateX(${rotateDataRef.current.rounded / 50}deg) translate3d(0, ${-rotateDataRef.current.rounded / 20}px, ${-rotateDataRef.current.rounded/30}px)`
+    const rotating = (dy: number) => { 
+        if (rotateContainer.current) {  
+            if (dy >= -1 && dy <= rotateContainer.current?.offsetHeight - 10) {
+                rotateDataRef.current.previous += (dy - rotateDataRef.current.previous)*0.2
+                rotateDataRef.current.rounded = Math.round(rotateDataRef.current.previous * 100) / 100
+                rotateContainer.current.style.transform = `rotateX(${rotateDataRef.current.rounded / 50}deg) translate3d(0, ${-rotateDataRef.current.rounded / 20}px, ${-rotateDataRef.current.rounded/30}px)`
+            }  
         }
-        /* if (inView) {
-            requestRef.current = requestAnimationFrame(rotating);
-        } */
-
     }
     useEffect(() => {
-        // @ts-ignore
-        /* const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-        if (menuStatus) {
-            rotateDataRef.current.rotateLock = true
-            //requestRef.current && cancelAnimationFrame(requestRef.current)
-        } else {
-            
-        }
-        requestRef.current = requestAnimationFrame(rotating) */
         rotateDataRef.current = {
                 current: 0,
                 previous: 0,

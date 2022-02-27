@@ -135,15 +135,15 @@ function App() {
             timeData.ticking = true
         }
         latestKnownScrollY.current = 0;
-        window.addEventListener('scroll', onScroll);
-        window.addEventListener('touchmove', onTouchMove, { passive: false });
+        //window.addEventListener('scroll', onScroll);
+        //window.addEventListener('touchmove', onTouchMove, { passive: false });
         // @ts-ignore
         const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
         requestRef.current = requestAnimationFrame(render)
         return () => {
             cancelAnimationFrame(requestRef.current!);
-            window.removeEventListener("scroll", onScroll);
-            window.removeEventListener("touchmove", onTouchMove);
+            //window.removeEventListener("scroll", onScroll);
+            //window.removeEventListener("touchmove", onTouchMove);
         }
     }, [])
 
@@ -159,16 +159,18 @@ function App() {
         }
     }, [menuStatus])
     const render = (now: number) => {
+        latestKnownScrollY.current = window.scrollY;
         if (!previousTimeRef.current) {
             previousTimeRef.current = now
         }
         timeData.delta = now - previousTimeRef.current!;
+        scrolling(timeData.delta)
         paintBgQueueRef.current && paintBgQueueRef.current(timeData.delta)
-        if (!scrollLockRef.current) {
-            rotateQueueRef.current && rotateQueueRef.current(timeData.delta)
+        if (!scrollLockRef.current && typeof latestKnownScrollY.current === "number") {
+            rotateQueueRef.current && rotateQueueRef.current(latestKnownScrollY.current)
         }  
         requestRef.current = requestAnimationFrame(render)
-        scrolling(timeData.delta)
+        
         if (timeData.delta > INTERVAL) {
             timeData.ticking = false
             previousTimeRef.current = now - Math.round(timeData.delta % INTERVAL);
