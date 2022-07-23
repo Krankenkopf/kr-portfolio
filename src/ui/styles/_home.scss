@@ -391,7 +391,8 @@
 			top: 75px;
 			z-index: 6;
 			transform: rotate(-10deg);
-			animation: __splashPulse infinite 1.5s linear;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
 			@media (max-width: ($md2+px)) {
 				font-size: 14px;
 				top: 65px;
@@ -429,13 +430,12 @@
 			}
 		}
 		&:nth-child(3n-1) .skills__card__splashDesc {
-			animation: __splashPulse infinite 1.5s 0.5s linear;
-		}
-		&:nth-child(3n) .skills__card__splashDesc {
-			animation: __splashPulse infinite 1.5s linear;
+			//animation-delay: 0.5s;
+			animation-play-state: 0.5s;
 		}
 		&:nth-child(3n + 1) .skills__card__splashDesc {
-			animation: __splashPulse infinite 1.5s 1s linear;
+			//animation-delay: 1s;
+			animation-play-state: 1s;
 		}
 
 		// .skills__card__title
@@ -1118,6 +1118,7 @@ $frame-duration: $time / $number-of-frames;
 }
 
 @include splashPulse();
+@include splashRotate();
 
 @keyframes blinking {
 	50% {

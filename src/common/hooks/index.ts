@@ -6,6 +6,8 @@ import { AppThunkDispatch, TState } from "../../bll/store";
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<TState> = useSelector;
 
+export * from './useEffectOnce';
+
 export const useWindowSize = () => {
     function getSize() {
         return {

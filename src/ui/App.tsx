@@ -17,7 +17,7 @@ import { INTERVAL } from '../common/consts';
 
 function App() {
     const dispatch = useAppDispatch()
-    const [height, setHeight] = useState<number>(0)
+    const [height, setHeight] = useState(0)
     const size = useWindowSize()
 
     const device = useAppSelector<TDevice>(state => state.app.device)
@@ -56,6 +56,7 @@ function App() {
     }, [menuStatus])
     
     const ref = useRef<HTMLDivElement>(null)
+    const offsetHeight = ref.current && ref.current.offsetHeight
     useEffect(() => {
         if (ref.current
             && ref.current.offsetHeight !== height
@@ -64,7 +65,7 @@ function App() {
         }
         setMenuStatus(false)
 
-    }, [size, height, isLoaded])
+    }, [size, height, isLoaded, offsetHeight])
 
     useEffect(() => {
         // $md1: 1182;

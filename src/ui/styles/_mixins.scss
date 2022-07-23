@@ -90,6 +90,26 @@
 	}
 }
 
+@mixin splashRotate() {
+	@keyframes __splashRotate {
+		0% {
+			transform: scale(1) rotate(-10deg);
+		}
+		25% {
+			transform: scale(0.99) rotate(-5deg);
+		}
+		50% {
+			transform: scale(0.98) rotate(-10deg);
+		}
+		75% {
+			transform: scale(0.99) rotate(-15deg);
+		}
+		100% {
+			transform: scale(1) rotate(-10deg);
+		}
+	}
+}
+
 // </ANIMATION KEYFRAMES> ==============================================================================================
 // </ANIMATIONS> =======================================================================================================
 
